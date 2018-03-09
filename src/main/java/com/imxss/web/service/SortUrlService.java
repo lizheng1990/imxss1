@@ -28,9 +28,10 @@ public class SortUrlService {
 	private String getSortUrlImplSina(String url) {
 		try {
 			HttpEntity entity = HttpUtil
-					.Get("http://api.t.sina.com.cn/short_url/shorten.json?source=3213676317&url_long="
+					.Get("http://api.t.sina.com.cn/short_url/shorten.json?source=31641035&url_long="
 							+ url);
 			String html = entity.getHtml().replace("[", "").replace("]", "");
+			System.out.println(html);
 			Map<String, Object> jsonMap = JSON.parseObject(html, new TypeReference<Map<String, Object>>() {
 			});
 			String sortUrl = jsonMap.get("url_short").toString();
