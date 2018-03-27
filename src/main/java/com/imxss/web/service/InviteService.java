@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.imxss.web.constant.CacheFinal;
 import com.imxss.web.domain.InviteInfo;
+import com.oracle.webservices.internal.api.databinding.DatabindingMode;
 
 @Service
 public class InviteService {
