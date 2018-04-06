@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import com.imxss.web.constant.CacheFinal;
 import com.imxss.web.domain.InviteInfo;
-import com.oracle.webservices.internal.api.databinding.DatabindingMode;
 
 @Service
 public class InviteService {
@@ -33,7 +32,7 @@ public class InviteService {
 
 	@CacheWipe(key = CacheFinal.INVITE_INFO, fields = "invite")
 	public Long pushUserIdToInvite(String invite, Integer userId) {
-		String sql = "update invite_info set status=1,userId=? where status=0 and inviteCode=?";
+		String sql = "update invite_info set status=1,userId=? where inviteCode=?";
 		return jdbcHandle.doUpdate(sql, userId, invite);
 	}
 

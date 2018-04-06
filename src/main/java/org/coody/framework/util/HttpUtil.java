@@ -803,7 +803,7 @@ public class HttpUtil {
 						"image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */*");
 			}
 			if (!headers.containsKey("Content-Type")) {
-				conn.addRequestProperty("Content-Type", "html/text");
+				conn.addRequestProperty("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 			}
 			if (!headers.containsKey("User-Agent")) {
 				conn.addRequestProperty("User-Agent",
