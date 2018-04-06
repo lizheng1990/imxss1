@@ -37,4 +37,7 @@
 .tpl-left-nav-sub-menu a {
     padding: 4px 2px 2px 30px !important;
 }
+.tpl-left-nav-list ul li{
+	    line-height: 1.4!important;
+}
 </style>
