@@ -41,6 +41,6 @@
 	line-height: 1.4!important;
 }
 .parent-menu{
-	font-weight: 600;
+	font-weight: 600!important;
 }
 </style>
