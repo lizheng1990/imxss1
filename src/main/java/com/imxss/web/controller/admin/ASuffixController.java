@@ -79,6 +79,10 @@ public class ASuffixController extends BaseController{
 		if(suffixInfoInDb!=null){
 			return new MsgEntity(-1,"后缀已存在");
 		}
+		List<String> staticSuffixs=suffixService.loadStaSuffix();
+		if(staticSuffixs!=null&&staticSuffixs.contains(suffixInfo.getSuffix())){
+			return new MsgEntity(-1,"不能添加该后缀");
+		}
 		Long code=suffixService.addSuffix(suffixInfo);
 		if(code<1){
 			return new MsgEntity(-1,"操作失败");
