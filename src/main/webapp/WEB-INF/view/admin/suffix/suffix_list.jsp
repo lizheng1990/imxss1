@@ -123,6 +123,12 @@
 			success : function(json) {
 				alert(json.msg);
 				if (json.code == 0) {
+					if(status==2){
+						var href=location.href;
+						href=href.replace('${defSuffix}',suffix);
+						location.href=href;
+						return;
+					}
 					location.reload(true);
 				}
 			},
