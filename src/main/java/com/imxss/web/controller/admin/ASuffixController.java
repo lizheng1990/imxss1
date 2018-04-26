@@ -1,5 +1,7 @@
 package com.imxss.web.controller.admin;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.coody.framework.context.annotation.Power;
