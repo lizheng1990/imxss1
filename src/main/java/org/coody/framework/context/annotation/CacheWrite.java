@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface CacheWrite {
 	String key() default "";
-	int validTime() default 10;
+	int time() default 10;
 	String [] fields() default "";
 }

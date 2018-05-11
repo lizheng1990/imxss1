@@ -29,13 +29,13 @@ public class MenuService {
 	JdbcHandle jdbcHandle;
 	
 	
-	@CacheWrite(key=CacheFinal.MENUS_LIST,validTime=600,fields="roleId")
+	@CacheWrite(key=CacheFinal.MENUS_LIST,time=600,fields="roleId")
 	@DeBug
 	public List<MenuSchema> loadMenus(Integer roleId){
 		List<SysMenus> menus=loadSourceMenus(roleId);
 		return parseMenus(menus);
 	}
-	@CacheWrite(key=CacheFinal.MENUS_SOURCES,validTime=600,fields="roleId")
+	@CacheWrite(key=CacheFinal.MENUS_SOURCES,time=600,fields="roleId")
 	public List<SysMenus> loadSourceMenus(Integer roleId){
 		try {
 			UserRole role=roleService.loadRole(roleId);
@@ -46,13 +46,13 @@ public class MenuService {
 			return null;
 		}
 	}
-	@CacheWrite(key=CacheFinal.MENUS_LIST,validTime=7200)
+	@CacheWrite(key=CacheFinal.MENUS_LIST,time=7200)
 	@DeBug
 	public List<MenuSchema> loadAllMenus(){
 		List<SysMenus> menus=jdbcHandle.findBean(SysMenus.class);
 		return parseMenus(menus);
 	}
-	@CacheWrite(key=CacheFinal.MENUS_LIST,validTime=7200)
+	@CacheWrite(key=CacheFinal.MENUS_LIST,time=7200)
 	public List<MenuSchema> parseMenus(List<SysMenus> menus){
 		List<MenuSchema> schemas=new ArrayList<MenuSchema>();
 		if(StringUtil.isNullOrEmpty(menus)){

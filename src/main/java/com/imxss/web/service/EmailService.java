@@ -74,7 +74,7 @@ public class EmailService {
 		return code;
 	}
 
-	@CacheWrite(key = CacheFinal.EMAIL_LIST, fields = { "keyWorld", "pager.currPage", "pager.pageSize" }, validTime = 5)
+	@CacheWrite(key = CacheFinal.EMAIL_LIST, fields = { "keyWorld", "pager.currPage", "pager.pageSize" }, time = 5)
 	public Pager loadEmails(Pager pager, String keyWorld) {
 		Where where = new Where();
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {

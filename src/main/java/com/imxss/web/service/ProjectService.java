@@ -34,7 +34,7 @@ public class ProjectService {
 	JdbcHandle jdbcHandle;
 
 	@CacheWrite(key = CacheFinal.PROJECT_LIST, fields = { "userId", "keyWorld", "pager.currPage",
-			"pager.pageSize" }, validTime = 2)
+			"pager.pageSize" }, time = 2)
 	public Pager loadUserModules(Integer userId, Pager pager, String keyWorld) {
 		Where where = new Where();
 		if(userId!=null){
@@ -46,7 +46,7 @@ public class ProjectService {
 		return jdbcHandle.findPager(ProjectInfo.class, where, pager, "id", true);
 	}
 
-	@CacheWrite(key = CacheFinal.PROJECT_INFO, fields = "id", validTime = 72000)
+	@CacheWrite(key = CacheFinal.PROJECT_INFO, fields = "id", time = 72000)
 	public ProjectInfo loadProjectInfo(Integer id) {
 		return jdbcHandle.findBeanFirst(ProjectInfo.class, "id", id);
 	}
@@ -87,19 +87,19 @@ public class ProjectService {
 		pager.setPageSize(100);
 		return jdbcHandle.findBean(ProjectInfo.class,where,pager);
 	}
-	@CacheWrite(key = CacheFinal.PROJECT_LIST, fields = { "userInfo.id"}, validTime = 72000)
+	@CacheWrite(key = CacheFinal.PROJECT_LIST, fields = { "userInfo.id"}, time = 72000)
 	public List<ProjectInfo> loadProjects(UserInfo userInfo){
 		Where where=new Where();
 		where.set("userId", userInfo.getId());
 		return jdbcHandle.findBean(ProjectInfo.class,where);
 	}
-	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = "projectId", validTime = 72000)
+	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = "projectId", time = 72000)
 	public List<ProjectModuleMapping> loadProjectMappings(Integer projectId) {
 		return jdbcHandle.findBean(ProjectModuleMapping.class, "projectId", projectId);
 	}
 
 	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = { "userId", "keyWorld", "pager.currPage",
-			"pager.pageSize" }, validTime = 2)
+			"pager.pageSize" }, time = 2)
 	public Pager loadProjectMappings(Integer userId, Integer projectId, Pager pager, String keyWorld) {
 		Where where = new Where();
 		where.set("userId", userId);
@@ -110,7 +110,7 @@ public class ProjectService {
 		return jdbcHandle.findPager(ProjectModuleMapping.class, where, pager, "mappingUrl", false);
 	}
 
-	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_INFO, fields = { "id" }, validTime = 72000)
+	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_INFO, fields = { "id" }, time = 72000)
 	public ProjectModuleMapping loadProjectMappings(String id) {
 		return jdbcHandle.findBeanFirst(ProjectModuleMapping.class, "id", id);
 	}
@@ -121,7 +121,7 @@ public class ProjectService {
 		return jdbcHandle.saveOrUpdateAuto(mapping);
 	}
 
-	@CacheWrite(key = CacheFinal.PROJECT_NUM, fields = "userId", validTime = 60)
+	@CacheWrite(key = CacheFinal.PROJECT_NUM, fields = "userId", time = 60)
 	public Integer loadProjectNum(Integer userId) {
 		String sql = "select count(*) from project_info where userId=?";
 		return jdbcHandle.getCount(sql, userId);

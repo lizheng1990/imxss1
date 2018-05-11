@@ -19,7 +19,7 @@ public class InviteService {
 	@Resource
 	JdbcHandle jdbcHandle;
 
-	@CacheWrite(key = CacheFinal.INVITE_INFO, validTime = 60, fields = "invite")
+	@CacheWrite(key = CacheFinal.INVITE_INFO, time = 60, fields = "invite")
 	public InviteInfo loadInviteInfo(String invite) {
 		return jdbcHandle.findBeanFirst(InviteInfo.class, "inviteCode", invite);
 	}
@@ -41,7 +41,7 @@ public class InviteService {
 	}
 
 	@CacheWrite(key = CacheFinal.INVITE_LIST, fields = { "userId", "keyWorld", "pager.currPage",
-			"pager.pageSize" }, validTime = 2)
+			"pager.pageSize" }, time = 2)
 	public Pager loadInvites(Pager pager, String keyWorld) {
 		Where where = new Where();
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {

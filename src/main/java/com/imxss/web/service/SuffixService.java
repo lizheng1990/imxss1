@@ -25,7 +25,7 @@ public class SuffixService {
 	@Resource
 	JdbcHandle jdbcHandle;
 	
-	@CacheWrite(key=CacheFinal.SPRING_SUFFIXS,validTime=3600)
+	@CacheWrite(key=CacheFinal.SPRING_SUFFIXS,time=3600)
 	public List<String> loadSpringSuffixs(){
 		//执行语句：select * from suffix where status in (1,2)
 		List<SuffixInfo> suffixs= jdbcHandle.findBean(SuffixInfo.class,"status",new Integer[]{1,2});
@@ -68,7 +68,7 @@ public class SuffixService {
 	}
 	
 	
-	@CacheWrite(key=CacheFinal.SUFFIX_LIST,fields={"keyWorld","pager.currPage","pager.pageSize"},validTime=2)
+	@CacheWrite(key=CacheFinal.SUFFIX_LIST,fields={"keyWorld","pager.currPage","pager.pageSize"},time=2)
 	public Pager loadSuffixs(Pager pager,String keyWorld){
 		Where where=new Where();
 		if(!StringUtil.isNullOrEmpty(keyWorld)){
@@ -76,7 +76,7 @@ public class SuffixService {
 		}
 		return jdbcHandle.findPager(SuffixInfo.class, where,pager,"status desc,suffix",false);
 	}
-	@CacheWrite(key=CacheFinal.DEFAULT_SUFFIXS,validTime=72000)
+	@CacheWrite(key=CacheFinal.DEFAULT_SUFFIXS,time=72000)
 	public String loadSpringDefaultSuffix(){
 		//执行语句：select * from suffix where status =2 limit 1
 		SuffixInfo suffix=jdbcHandle.findBeanFirst(SuffixInfo.class,"status",2);
@@ -86,7 +86,7 @@ public class SuffixService {
 		return suffix.getSuffix();
 	}
 	
-	@CacheWrite(key=CacheFinal.STA_SUFFIX ,validTime=3600)
+	@CacheWrite(key=CacheFinal.STA_SUFFIX ,time=3600)
 	public List<String> loadStaSuffix() {
 		//执行语句：select * from suffix_static
 		List<SuffixStatic> suffixs= jdbcHandle.findBean(SuffixStatic.class);

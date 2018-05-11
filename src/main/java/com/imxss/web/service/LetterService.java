@@ -23,13 +23,13 @@ public class LetterService {
 	@Resource
 	JdbcHandle jdbcHandle;
 	
-	@CacheWrite(key=CacheFinal.PROJECT_LETTER_NUM,fields="projectId",validTime=72000)
+	@CacheWrite(key=CacheFinal.PROJECT_LETTER_NUM,fields="projectId",time=72000)
 	public Integer loadLetterNum(Integer projectId){
 		String sql="select count(*) from letter_info where projectId=?";
 		return jdbcHandle.queryFirstAuto(Integer.class, sql, projectId);
 	}
 	
-	@CacheWrite(key=CacheFinal.LETTER_LIST,fields={"userId","keyWorld","pager.currPage","pager.pageSize"},validTime=2)
+	@CacheWrite(key=CacheFinal.LETTER_LIST,fields={"userId","keyWorld","pager.currPage","pager.pageSize"},time=2)
 	public Pager loadUserLetters(Integer userId,Pager pager,String keyWorld,Integer projectId){
 		Where where=new Where();
 		if(userId!=null){
@@ -43,7 +43,7 @@ public class LetterService {
 		}
 		return jdbcHandle.findPager(LetterInfo.class, where,pager,"id",true);
 	}
-	@CacheWrite(key=CacheFinal.LETTER_NUM,fields={"userId","isReaded"},validTime=5)
+	@CacheWrite(key=CacheFinal.LETTER_NUM,fields={"userId","isReaded"},time=5)
 	public Integer loadNotReaderNum(Integer userId,Integer isReaded){
 		if(isReaded!=null){
 			String sql="select count(*) from letter_info where userId=? and isReaded=?";
@@ -52,7 +52,7 @@ public class LetterService {
 		String sql="select count(*) from letter_info where userId=?";
 		return jdbcHandle.getCount(sql,userId);
 	}
-	@CacheWrite(key=CacheFinal.LETTER_INFO,fields={"id"},validTime=72000)
+	@CacheWrite(key=CacheFinal.LETTER_INFO,fields={"id"},time=72000)
 	public LetterInfo loadLetterInfo(Integer id){
 		LetterInfo letter= jdbcHandle.findBeanFirst(LetterInfo.class, "id",id);
 		return letter;
@@ -61,14 +61,13 @@ public class LetterService {
 	public void writeLetterStatus(Integer letterId,Integer status){
 		String sql="update letter_info set isReaded=? where id=? limit 1";
 		jdbcHandle.doUpdate(sql,status,letterId);
-		
 	}
-	@CacheWrite(key=CacheFinal.LETTER_PARAS,fields="letterId",validTime=72000)
+	@CacheWrite(key=CacheFinal.LETTER_PARAS,fields="letterId",time=72000)
 	public List<LetterParas> loadParas(Integer letterId){
 		return jdbcHandle.findBean(LetterParas.class, "letterId",letterId);
 	}
 	
-	@CacheWrite(key=CacheFinal.LETTER_INFO,fields="unionId",validTime=72000)
+	@CacheWrite(key=CacheFinal.LETTER_INFO,fields="unionId",time=72000)
 	public LetterInfo loadLetterInfo(String unionId){
 		return jdbcHandle.findBeanFirst(LetterInfo.class, "unionId",unionId);
 	}

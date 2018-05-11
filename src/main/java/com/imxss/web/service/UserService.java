@@ -33,13 +33,13 @@ public class UserService {
 	@Resource
 	ProjectService projectService;
 
-	@CacheWrite(key = CacheFinal.USER_INFO, fields = "account", validTime = 60)
+	@CacheWrite(key = CacheFinal.USER_INFO, fields = "account", time = 60)
 	public UserInfo loadUserInfo(String account) {
 		String sql = "select * from user_info where email=? or mobile=? limit 1";
 		return jdbcHandle.queryFirstAuto(UserInfo.class, sql, account, account);
 	}
 
-	@CacheWrite(key = CacheFinal.USER_INFO, fields = "id", validTime = 72000)
+	@CacheWrite(key = CacheFinal.USER_INFO, fields = "id", time = 72000)
 	public UserInfo loadUserInfo(Integer id) {
 		return jdbcHandle.findBeanFirst(UserInfo.class, "id", id);
 	}
@@ -78,7 +78,7 @@ public class UserService {
 		return jdbcHandle.insert(userInfo);
 	}
 
-	@CacheWrite(key = CacheFinal.USER_LIST, fields = { "keyWorld", "pager.currPage", "pager.pageSize" }, validTime = 2)
+	@CacheWrite(key = CacheFinal.USER_LIST, fields = { "keyWorld", "pager.currPage", "pager.pageSize" }, time = 2)
 	public Pager loadUsers(Pager pager, String keyWorld) {
 		Where where = new Where();
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {

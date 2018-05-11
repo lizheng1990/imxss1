@@ -15,7 +15,7 @@ public class SortUrlService {
 
 	
 
-	@CacheWrite(fields="url",validTime=72000)
+	@CacheWrite(fields="url",time=72000)
 	public String getSortUrl(String url) {
 		try {
 			return getSortUrlImplSina(url);

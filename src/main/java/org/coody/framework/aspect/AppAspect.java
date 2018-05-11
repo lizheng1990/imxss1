@@ -130,8 +130,8 @@ public class AppAspect {
 			} catch (Exception e) {
 				PrintException.printException(logger, e);
 			}
-			Integer cacheTimer = ((handle.validTime() == 0) ? 24 * 3600
-					: handle.validTime());
+			Integer cacheTimer = ((handle.time() == 0) ? 24 * 3600
+					: handle.time());
 			// 获取缓存
 			try {
 				Object result = LocalCache.getCache(key);

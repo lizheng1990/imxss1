@@ -22,7 +22,7 @@ public class ModuleService {
 	JdbcHandle jdbcHandle;
 
 	@CacheWrite(key = CacheFinal.MODULE_LIST, fields = { "userId", "keyWorld", "pager.currPage",
-			"pager.pageSize" }, validTime = 2)
+			"pager.pageSize" }, time = 2)
 	public Pager loadUserModules(Integer userId, Pager pager, String keyWorld) {
 		Where where = new Where();
 		if(userId!=null){
@@ -35,7 +35,7 @@ public class ModuleService {
 	}
 
 	@CacheWrite(key = CacheFinal.MODULE_COMM_LIST, fields = { "keyWorld", "pager.currPage",
-			"pager.pageSize" }, validTime = 10)
+			"pager.pageSize" }, time = 10)
 	public Pager loadCommModules(Pager pager, String keyWorld) {
 		Where where = new Where();
 		where.set("type", 1);
@@ -45,7 +45,7 @@ public class ModuleService {
 		return jdbcHandle.findPager(ModuleInfo.class, where, pager, "id", true);
 	}
 
-	@CacheWrite(key = CacheFinal.MODULE_INFO, fields = "moduleId", validTime = 72000)
+	@CacheWrite(key = CacheFinal.MODULE_INFO, fields = "moduleId", time = 72000)
 	public ModuleInfo loadModuleInfo(Integer moduleId) {
 		return jdbcHandle.findBeanFirst(ModuleInfo.class, "id", moduleId);
 	}
@@ -65,19 +65,19 @@ public class ModuleService {
 		return code;
 	}
 
-	@CacheWrite(key = CacheFinal.MODULE_SYS_LIST, validTime = 10)
+	@CacheWrite(key = CacheFinal.MODULE_SYS_LIST, time = 10)
 	public List<ModuleInfo> loadSysModules() {
 		Where where = new Where();
 		where.set("type", 1);
 		return jdbcHandle.findBean(ModuleInfo.class, where, "id", true);
 	}
 
-	@CacheWrite(key = CacheFinal.MODULE_USER_LIST, fields = "userId", validTime = 60)
+	@CacheWrite(key = CacheFinal.MODULE_USER_LIST, fields = "userId", time = 60)
 	public List<ModuleInfo> loadUserModules(Integer userId) {
 		return jdbcHandle.findBean(ModuleInfo.class, "userId", userId, "id", true);
 	}
 
-	@CacheWrite(key = CacheFinal.MODULE_NUM, fields = "userId", validTime = 50)
+	@CacheWrite(key = CacheFinal.MODULE_NUM, fields = "userId", time = 50)
 	public Integer loadModuleNum(Integer userId) {
 		String sql = "select count(*) from module_info where userId=?";
 		return jdbcHandle.getCount(sql, userId);

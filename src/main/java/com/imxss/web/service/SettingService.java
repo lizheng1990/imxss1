@@ -19,7 +19,7 @@ public class SettingService {
 	 * 加载网站设置
 	 * @return
 	 */
-	@CacheWrite(key=CacheFinal.SETTING_INFO,validTime=72000)
+	@CacheWrite(key=CacheFinal.SETTING_INFO,time=72000)
 	public SettingInfo loadSiteSetting(){
 		return jdbcHandle.findBeanFirst(SettingInfo.class);
 	}
