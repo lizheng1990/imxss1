@@ -79,9 +79,9 @@ public class ULetterController extends BaseController {
 	public String letterInfo(Integer letterId) {
 		UserInfo userInfo = RequestUtil.getUser(request);
 		LetterInfo letter = letterService.loadLetterInfo(letterId);
-		letter.setIsReaded(1);
 		if(letter.getIsReaded()==0){
 			letterService.writeLetterStatus(letterId, 1);
+			letter.setIsReaded(1);
 		}
 		if (letter == null || letter.getUserId() != userInfo.getId().intValue()) {
 			return "user/letter/letter_edit";

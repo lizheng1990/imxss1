@@ -88,6 +88,13 @@
 			<artifactId>ant</artifactId>
 			<version>1.9.4</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.protostuff/protostuff-core -->
+<dependency>
+    <groupId>io.protostuff</groupId>
+    <artifactId>protostuff-core</artifactId>
+    <version>1.6.0</version>
+</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>imxss</finalName>

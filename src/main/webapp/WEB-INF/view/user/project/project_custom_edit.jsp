@@ -67,7 +67,7 @@
 												<optgroup label="系统模块">
 													<c:forEach items="${sysModules }" var="module">
 														<option value="${module.id }"
-															${projectInfo.moduleId==module.id?'selected':'' }>${module.title }</option>
+															${mapping.moduleId==module.id?'selected':'' } >${module.title }</option>
 													</c:forEach>
 												</optgroup>
 											</c:if>
@@ -75,7 +75,7 @@
 												<optgroup label="我的模块">
 													<c:forEach items="${userModules }" var="module">
 														<option value="${module.id }"
-															${projectInfo.moduleId==module.id?'selected':'' }>${module.title }</option>
+															${mapping.moduleId==module.id?'selected':'' }>${module.title }</option>
 													</c:forEach>
 												</optgroup>
 											</c:if>
