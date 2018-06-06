@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.annotation.Resource;
-import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
 import org.coody.framework.context.entity.MsgEntity;
@@ -14,7 +12,6 @@ import org.coody.framework.core.controller.BaseController;
 import org.coody.framework.util.EncryptUtil;
 import org.coody.framework.util.RequestUtil;
 import org.coody.framework.util.StringUtil;
-import org.coody.framework.util.VerificationCodeUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -71,13 +68,4 @@ public class AdminController extends BaseController{
 		return new MsgEntity(0, "登录成功");
 	}
 
-	
-	@RequestMapping(value = "/verCode")
-	public void verCode(HttpServletResponse response) throws ServletException, IOException {
-		String verCode = VerificationCodeUtil.getCodeStr(4);
-		RequestUtil.setCode(request, verCode);
-		ServletOutputStream out = response.getOutputStream();
-		response.setContentType("image/gif");
-		ImageIO.write(VerificationCodeUtil.outCode(120, 42, 4, 28, verCode), "png", out);
-	}
 }

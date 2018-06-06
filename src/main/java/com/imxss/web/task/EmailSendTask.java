@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import com.imxss.web.domain.EmailQueue;
+import com.imxss.web.install.InstallHandle;
 import com.imxss.web.service.EmailService;
 
 @Component
@@ -22,6 +23,9 @@ public class EmailSendTask {
 	@Scheduled(cron="0/2 * * * * ? ")
 	@LogHead("发送邮件队列")
 	public synchronized void sendEmailTask(){
+		if(!InstallHandle.isInstall()){
+			return;
+		}
 		List<EmailQueue> queues=emailService.getEmailQueues();
 		if(queues==null){
 			return;

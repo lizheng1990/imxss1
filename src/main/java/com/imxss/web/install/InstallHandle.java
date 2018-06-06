@@ -96,7 +96,7 @@ public class InstallHandle {
 	}
 
 	public static boolean createTables(String host, String dbUser, String pwd, String dbName) {
-		String path = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "/ImXSS.sql";
+		String path = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "/imxss.sql";
 		try {
 			SQLExec sqlExec = new SQLExec();
 			Class.forName("com.mysql.jdbc.Driver");// 指定连接类型

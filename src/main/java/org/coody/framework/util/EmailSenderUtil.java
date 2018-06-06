@@ -1,6 +1,5 @@
 package org.coody.framework.util;
 
-import java.security.Security;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -55,7 +54,7 @@ public class EmailSenderUtil {
 			// 保存邮件
 			message.saveChanges();
 			// 发送邮件
-			Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+			//Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 			Transport transport = session.getTransport("smtp");
 			try {
 				if(!session.getTransport().isConnected()){
@@ -136,7 +135,5 @@ public class EmailSenderUtil {
 			return false;
 		}
 		
-	}
-	public static void main(String[] args) {
 	}
 }
