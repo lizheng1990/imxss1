@@ -91,7 +91,7 @@ public class ProjectService {
 	public List<ProjectInfo> loadProjects(UserInfo userInfo){
 		Where where=new Where();
 		where.set("userId", userInfo.getId());
-		return jdbcHandle.findBean(ProjectInfo.class,where);
+		return jdbcHandle.findBean(ProjectInfo.class,where,"id",true);
 	}
 	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = "projectId", time = 72000)
 	public List<ProjectModuleMapping> loadProjectMappings(Integer projectId) {
