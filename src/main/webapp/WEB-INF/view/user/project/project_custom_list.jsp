@@ -80,7 +80,7 @@
 											</c:if>
 											<c:forEach items="${dataPager.data }" var="mapping">
 												<tr>
-													<td style="max-width: 15%;word-break:break-all">${mapping..type==1?"来源地址":"IP" }</td>
+													<td style="max-width: 15%;word-break:break-all">${mapping.type==1?'来源地址':'IP' }</td>
 													<td style="max-width: 50%;word-break:break-all">${mapping.mapping }</td>
 													<td>${mapping.moduleName }</td>
 													<td style="max-width: 20%;word-break:break-all">
