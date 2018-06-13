@@ -99,6 +99,21 @@
 										<small>(空格分割,支持Ant通配符)</small>
 									</div>
 								</div>
+								<div class="am-form-group">
+									<label for="user-name" class="am-u-sm-3 am-form-label">屏蔽IP</label>
+									<div class="am-u-sm-9">
+										<c:if
+											test="${empty projectInfo.ignoreIp || (fn:length(projectInfo.ignoreIp)<'200' && !fn:contains(projectInfo.ignoreIp,';')) }">
+											<input type="text" class="tpl-form-input" id="user-name"
+												name="ignoreIp" value="${projectInfo.ignoreIp }">
+										</c:if>
+										<c:if
+											test="${!empty projectInfo.ignoreIp && (fn:length(projectInfo.ignoreIp)>'200') }">
+											<textarea class="" rows="10" id="user-intro" name="ignoreIp">${projectInfo.ignoreIp}</textarea>
+										</c:if>
+										<small>(空格分割,支持Ant通配符)</small>
+									</div>
+								</div>
 								<c:if test="${!empty projectInfo }">
 									<div class="am-form-group">
 										<hr>

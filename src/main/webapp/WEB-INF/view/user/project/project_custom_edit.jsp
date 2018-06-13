@@ -54,7 +54,7 @@
 									<label for="user-name" class="am-u-sm-3 am-form-label">匹配类型</label>
 									<div class="am-u-sm-9">
 										<select data-am-selected="{btnSize: 'sm'}"
-											style="display: none;" name="projectId">
+											style="display: none;" name="type">
 											<option value="1" ${mapping.type==1?'selected':'' }>来源地址</option>
 											<option value="2" ${mapping.type==2?'selected':'' }>IP地址</option>
 										</select>
