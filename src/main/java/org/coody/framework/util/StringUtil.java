@@ -859,4 +859,8 @@ public class StringUtil {
 		}
 		return false;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(isAntMatch("219.136.74.182", "219.136.74.182"));
+	}
 }

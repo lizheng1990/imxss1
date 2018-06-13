@@ -89,6 +89,9 @@ public class RequestUtil {
 	}
 	
 	private static boolean isInvialIp(String ip){
+		if(StringUtil.isNullOrEmpty(ip)){
+			return true;
+		}
 		if(ip.equals("127.0.0.1")||ip.equalsIgnoreCase("localhost")){
 			return true;
 		}
