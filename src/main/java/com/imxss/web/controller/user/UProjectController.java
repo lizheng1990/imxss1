@@ -144,7 +144,7 @@ public class UProjectController extends BaseController {
 			mapping = new ProjectModuleMapping();
 			mapping.setId(JUUIDUtil.createUuid());
 		}
-		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mapping");
+		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mapping", "type");
 		if (mapping == null
 				|| StringUtil.hasNull(mapping.getMapping(), mapping.getModuleId(), mapping.getProjectId())) {
 			return new MsgEntity(-1, "参数有误");
@@ -250,7 +250,7 @@ public class UProjectController extends BaseController {
 				return new MsgEntity(-1, "无权操作");
 			}
 		}
-		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef");
+		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef", "ignoreIp");
 		ModuleInfo moduleInfo = moduleService.loadModuleInfo(projectInfo.getModuleId());
 		if (moduleInfo == null
 				|| (moduleInfo.getUserId() != userInfo.getId().intValue() && moduleInfo.getType() != 1)) {
