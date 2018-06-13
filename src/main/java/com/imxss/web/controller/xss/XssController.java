@@ -66,7 +66,7 @@ public class XssController extends BaseController {
 		if (!StringUtil.isNullOrEmpty(mappings)) {
 			String ip = RequestUtil.getIpAddr(req);
 			for (ProjectModuleMapping mapping : mappings) {
-				if(mapping.getType()==1){
+				if (mapping.getType() == 1) {
 					logger.debug("来源地址:" + referer + ";匹配URL:" + mapping.getMapping());
 					if (StringUtil.isAntMatch(referer, mapping.getMapping())) {
 						moduleId = mapping.getModuleId();
@@ -141,6 +141,17 @@ public class XssController extends BaseController {
 						continue;
 					}
 					logger.error("来源地址已过滤:" + referer + ";" + patten);
+					return;
+				}
+			}
+			// 过滤IP地址
+			if (!StringUtil.isNullOrEmpty(project.getIgnoreIp())) {
+				String[] pattens = project.getIgnoreIp().split(" ");
+				for (String patten : pattens) {
+					if (!StringUtil.isAntMatch(ip, patten)) {
+						continue;
+					}
+					logger.error("IP地址已过滤:" + ip + ";" + patten);
 					return;
 				}
 			}
