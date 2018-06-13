@@ -229,7 +229,7 @@ public class AProjectController extends BaseController{
 		}
 		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mappingUrl");
 		if (mapping == null
-				|| StringUtil.hasNull(mapping.getMappingUrl(), mapping.getModuleId(), mapping.getProjectId())) {
+				|| StringUtil.hasNull(mapping.getMapping(), mapping.getModuleId(), mapping.getProjectId())) {
 			return new MsgEntity(-1, "参数有误");
 		}
 		ProjectInfo project = projectService.loadProjectInfo(mapping.getProjectId());

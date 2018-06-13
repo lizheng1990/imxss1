@@ -64,9 +64,19 @@ public class XssController extends BaseController {
 		String referer = req.getHeader("Referer");
 		List<ProjectModuleMapping> mappings = projectService.loadProjectMappings(id);
 		if (!StringUtil.isNullOrEmpty(mappings)) {
+			String ip = RequestUtil.getIpAddr(req);
 			for (ProjectModuleMapping mapping : mappings) {
-				logger.debug("来源地址:" + referer + ";匹配URL:" + mapping.getMappingUrl());
-				if (StringUtil.isAntMatch(referer, mapping.getMappingUrl())) {
+				if(mapping.getType()==1){
+					logger.debug("来源地址:" + referer + ";匹配URL:" + mapping.getMapping());
+					if (StringUtil.isAntMatch(referer, mapping.getMapping())) {
+						moduleId = mapping.getModuleId();
+						logger.debug("匹配模板:" + moduleId);
+						continue;
+					}
+					continue;
+				}
+				logger.debug("IP地址:" + referer + ";匹配IP:" + mapping.getMapping());
+				if (StringUtil.isAntMatch(ip, mapping.getMapping())) {
 					moduleId = mapping.getModuleId();
 					logger.debug("匹配模板:" + moduleId);
 					continue;

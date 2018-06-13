@@ -49,8 +49,9 @@
 							<!-- 搜索 -->
 							<div class="am-u-sm-12 am-u-md-3">
 								<div class="am-input-group am-input-group-sm">
-									<input type="text" class="am-form-field" name="keyWorld" placeholder="输入关键字搜索"
-										value="${keyWorld }"> <span class="am-input-group-btn">
+									<input type="text" class="am-form-field" name="keyWorld"
+										placeholder="输入关键字搜索" value="${keyWorld }"> <span
+										class="am-input-group-btn">
 										<button
 											class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
 											type="submit"></button>
@@ -65,7 +66,8 @@
 										class="am-table am-table-striped am-table-hover table-main">
 										<thead>
 											<tr>
-												<th>来源地址</th>
+												<th>匹配方式</th>
+												<th>匹配值</th>
 												<th>模块</th>
 												<th>操作</th>
 											</tr>
@@ -73,12 +75,13 @@
 										<tbody>
 											<c:if test="${empty dataPager.data }">
 												<tr>
-													<td colspan="3"><center>暂无数据</center></td>
+													<td colspan="4"><center>暂无数据</center></td>
 												</tr>
 											</c:if>
 											<c:forEach items="${dataPager.data }" var="mapping">
 												<tr>
-													<td style="max-width: 50%;word-break:break-all">${mapping.mappingUrl }</td>
+													<td style="max-width: 15%;word-break:break-all">${mapping..type==1?"来源地址":"IP" }</td>
+													<td style="max-width: 50%;word-break:break-all">${mapping.mapping }</td>
 													<td>${mapping.moduleName }</td>
 													<td style="max-width: 20%;word-break:break-all">
 														<div class="am-btn-toolbar">

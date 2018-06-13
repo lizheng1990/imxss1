@@ -7,12 +7,23 @@ public class ProjectModuleMapping extends BaseModel{
 
 	private Integer projectId;
 	private Integer moduleId;
-	private String mappingUrl;
+	private String mapping;
 	private Integer userId;
 	private String id;
+	/**
+	 * 1根据来源地址 2根据IP地址
+	 */
+	private Integer type;
 	
 	
 	
+	
+	public Integer getType() {
+		return type;
+	}
+	public void setType(Integer type) {
+		this.type = type;
+	}
 	public String getId() {
 		return id;
 	}
@@ -37,13 +48,12 @@ public class ProjectModuleMapping extends BaseModel{
 	public void setModuleId(Integer moduleId) {
 		this.moduleId = moduleId;
 	}
-	public String getMappingUrl() {
-		return mappingUrl;
+	public String getMapping() {
+		return mapping;
 	}
-	public void setMappingUrl(String mappingUrl) {
-		this.mappingUrl = mappingUrl;
+	public void setMapping(String mapping) {
+		this.mapping = mapping;
 	}
-	
 	
 
 }

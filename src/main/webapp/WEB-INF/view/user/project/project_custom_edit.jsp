@@ -43,7 +43,7 @@
 								onsubmit="submitForm();return false;">
 								<input type="hidden" name="projectId" value="${projectInfo.id }">
 								<div class="am-form-group">
-									<label for="user-name" class="am-u-sm-3 am-form-label">名称</label>
+									<label for="user-name" class="am-u-sm-3 am-form-label">项目</label>
 									<div class="am-u-sm-9">
 										<input type="text" class="tpl-form-input" id="user-name"
 											readonly="readonly" value="${projectInfo.title }"> <input
@@ -51,11 +51,21 @@
 									</div>
 								</div>
 								<div class="am-form-group">
-									<label for="user-name" class="am-u-sm-3 am-form-label">来源</label>
+									<label for="user-name" class="am-u-sm-3 am-form-label">匹配类型</label>
+									<div class="am-u-sm-9">
+										<select data-am-selected="{btnSize: 'sm'}"
+											style="display: none;" name="projectId">
+											<option value="1" ${mapping.type==1?'selected':'' }>来源地址</option>
+											<option value="2" ${mapping.type==2?'selected':'' }>IP地址</option>
+										</select>
+									</div>
+								</div>
+								<div class="am-form-group">
+									<label for="user-name" class="am-u-sm-3 am-form-label">匹配值</label>
 									<div class="am-u-sm-9">
 										<input type="text" class="tpl-form-input" id="user-name"
-											name="mappingUrl" placeholder="请填写来源地址"
-											value="${mapping.mappingUrl }"><small>(支持Ant通配符)</small>
+											name="mapping" placeholder="请填写来匹配值"
+											value="${mapping.mapping }"><small>(支持Ant通配符)</small>
 									</div>
 								</div>
 								<div class="am-form-group">

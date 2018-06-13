@@ -185,14 +185,15 @@ DROP TABLE IF EXISTS `project_module_mapping`;
 CREATE TABLE `project_module_mapping` (
   `projectId` int(11) NOT NULL,
   `moduleId` int(11) NOT NULL,
-  `mappingUrl` varchar(255) COLLATE utf8_bin NOT NULL,
+  `mapping` varchar(255) COLLATE utf8_bin NOT NULL,
   `userId` int(11) NOT NULL,
   `id` varchar(32) COLLATE utf8_bin DEFAULT NULL,
-  PRIMARY KEY (`mappingUrl`,`projectId`),
+  `type` int(1) DEFAULT 1,
+  PRIMARY KEY (`mapping`,`projectId`),
   UNIQUE KEY `mapping_id_index` (`id`) USING BTREE,
-  KEY `mappingUrl_index` (`mappingUrl`),
-  KEY `mappingUrl_user_index` (`mappingUrl`,`userId`),
-  KEY `mappingUrl_user_project_index` (`projectId`,`mappingUrl`,`userId`)
+  KEY `mapping_index` (`mapping`),
+  KEY `mapping_user_index` (`mapping`,`userId`),
+  KEY `mapping_user_project_index` (`projectId`,`mapping`,`userId`)
 ) ENGINE=InnoDB  ;
 
 -- ----------------------------

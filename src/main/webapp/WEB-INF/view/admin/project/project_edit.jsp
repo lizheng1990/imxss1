@@ -108,10 +108,10 @@
 									</div>
 									<c:forEach items="${mappings }" var="mapping">
 										<div class="am-form-group">
-											<label for="user-intro" class="am-u-sm-3 am-form-label">来源</label>
+											<label for="user-intro" class="am-u-sm-3 am-form-label">${mapping.type==1?"来源":"IP" }</label>
 											<div class="am-u-sm-9">
 												<input type="text" class="tpl-form-input" id="user-name"
-													readonly="readonly" value="${mapping.mappingUrl }">
+													readonly="readonly" value="${mapping.mapping }">
 											</div>
 										</div>
 										<div class="am-form-group">

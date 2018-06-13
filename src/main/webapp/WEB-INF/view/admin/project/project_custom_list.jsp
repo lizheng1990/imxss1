@@ -66,7 +66,8 @@
 										class="am-table am-table-striped am-table-hover table-main">
 										<thead>
 											<tr>
-												<th>来源地址</th>
+												<th>匹配方式</th>
+												<th>匹配值</th>
 												<th>模块</th>
 												<th>操作</th>
 											</tr>
@@ -74,26 +75,29 @@
 										<tbody>
 											<c:if test="${empty dataPager.data }">
 												<tr>
-													<td colspan="3"><center>暂无数据</center></td>
+													<td colspan="4"><center>暂无数据</center></td>
 												</tr>
 											</c:if>
 											<c:forEach items="${dataPager.data }" var="mapping">
 												<tr>
-													<td style="max-width: 50%;word-break:break-all">${mapping.mappingUrl }</td>
+													<td style="max-width: 15%;word-break:break-all">${mapping..type==1?"来源地址":"IP" }</td>
+													<td style="max-width: 50%;word-break:break-all">${mapping.mapping }</td>
 													<td>${mapping.moduleName }</td>
 													<td style="max-width: 20%;word-break:break-all">
 														<div class="am-btn-toolbar">
 															<div class="am-btn-group am-btn-group-xs">
-																<button type="button"
-																	onclick="location.href='projectModuleCustomEdit.${defSuffix }?id=${mapping.id }'"
-																	class="am-btn am-btn-default am-btn-xs am-text-secondary">
-																	编辑</button>
-																<button type="button"
-																	onclick="delData('${mapping.id }')"
-																	class="am-btn am-btn-default am-btn-xs am-text-danger">
-																	删除</button>
-																</div>
+																<c:if test="${mapping.userId==curr_login_user.id }">
+																	<button type="button"
+																		onclick="location.href='projectModuleCustomEdit.${defSuffix }?id=${mapping.id }'"
+																		class="am-btn am-btn-default am-btn-xs am-text-secondary">
+																		编辑</button>
+																	<button type="button"
+																		onclick="delData('${mapping.id }')"
+																		class="am-btn am-btn-default am-btn-xs am-text-danger">
+																		删除</button>
+																</c:if>
 															</div>
+														</div>
 													</td>
 												</tr>
 											</c:forEach>
