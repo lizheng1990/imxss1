@@ -130,7 +130,7 @@ public class AProjectController extends BaseController{
 	public Object projectSave() {
 		Integer id = getParaInteger("id");
 		ProjectInfo projectInfo = projectService.loadProjectInfo(id);
-		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef");
+		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef","ignoreIp");
 		if(StringUtil.hasNull(projectInfo.getTitle(),projectInfo.getModuleId())){
 			return new MsgEntity(-1,"参数有误");
 		}
@@ -227,7 +227,7 @@ public class AProjectController extends BaseController{
 			mapping = new ProjectModuleMapping();
 			mapping.setId(JUUIDUtil.createUuid());
 		}
-		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mapping");
+		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mapping", "type");
 		if (mapping == null
 				|| StringUtil.hasNull(mapping.getMapping(), mapping.getModuleId(), mapping.getProjectId())) {
 			return new MsgEntity(-1, "参数有误");
