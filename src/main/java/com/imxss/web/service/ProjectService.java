@@ -105,9 +105,9 @@ public class ProjectService {
 		where.set("userId", userId);
 		where.set("projectId", projectId);
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {
-			where.set("mappingUrl", "like", "%" + keyWorld + "%");
+			where.set("mapping", "like", "%" + keyWorld + "%");
 		}
-		return jdbcHandle.findPager(ProjectModuleMapping.class, where, pager, "mappingUrl", false);
+		return jdbcHandle.findPager(ProjectModuleMapping.class, where, pager, "mapping", false);
 	}
 
 	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_INFO, fields = { "id" }, time = 72000)

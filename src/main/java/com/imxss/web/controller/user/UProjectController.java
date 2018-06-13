@@ -144,7 +144,7 @@ public class UProjectController extends BaseController {
 			mapping = new ProjectModuleMapping();
 			mapping.setId(JUUIDUtil.createUuid());
 		}
-		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mappingUrl");
+		mapping = getBeanAccept(mapping, "projectId", "moduleId", "mapping");
 		if (mapping == null
 				|| StringUtil.hasNull(mapping.getMapping(), mapping.getModuleId(), mapping.getProjectId())) {
 			return new MsgEntity(-1, "参数有误");
