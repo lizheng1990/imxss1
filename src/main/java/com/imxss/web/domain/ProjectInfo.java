@@ -26,6 +26,17 @@ public class ProjectInfo extends BaseModel{
 	private Integer openMobile;
 	private Integer openEmail;
 	private String ignoreRef;
+	private String ignoreIp;
+	
+	
+	
+	
+	public String getIgnoreIp() {
+		return ignoreIp;
+	}
+	public void setIgnoreIp(String ignoreIp) {
+		this.ignoreIp = ignoreIp;
+	}
 	public Integer getId() {
 		return id;
 	}
