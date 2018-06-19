@@ -59,6 +59,10 @@ public class XssController extends BaseController {
 		if (StringUtil.isNullOrEmpty(project) || StringUtil.isNullOrEmpty(project.getModuleId())) {
 			return;
 		}
+		if(project.getIsOpen()!=1){
+			logger.info("该项目已终止收信:" + id);
+			return;
+		}
 		// 匹配来源地址
 		Integer moduleId = project.getModuleId();
 		String referer = req.getHeader("Referer");
@@ -102,6 +106,11 @@ public class XssController extends BaseController {
 	@LogHead("接受信封")
 	public void api(HttpServletRequest req, HttpServletResponse res, @PathVariable Integer id) {
 		try {
+			ProjectInfo project = projectService.loadProjectInfo(id);
+			if(project.getIsOpen()!=1){
+				logger.error("该项目已终止收信:" + id);
+				return;
+			}
 			Map<String, String> paraMap = getParas();
 			if (StringUtil.isNullOrEmpty(paraMap)) {
 				logger.error("未接受任何参数:" + id);
@@ -114,7 +123,7 @@ public class XssController extends BaseController {
 			XssThreadHandle.xssThreadPool.execute(new Runnable() {
 				@Override
 				public void run() {
-					doApi(id, referer, paraMap, basePath, ip, moduleId);
+					doApi(project, referer, paraMap, basePath, ip, moduleId);
 				}
 			});
 		} catch (Exception e) {
@@ -124,15 +133,10 @@ public class XssController extends BaseController {
 		}
 	}
 
-	private void doApi(Integer id, String referer, Map<String, String> paraMap, String basePath, String ip,
+	private void doApi(ProjectInfo project, String referer, Map<String, String> paraMap, String basePath, String ip,
 			Integer moduleId) {
 
 		try {
-			ProjectInfo project = projectService.loadProjectInfo(id);
-			if (project == null) {
-				logger.error("项目不存在:" + id);
-				return;
-			}
 			// 过滤来源地址
 			if (!StringUtil.isNullOrEmpty(project.getIgnoreRef())) {
 				String[] pattens = project.getIgnoreRef().split(" ");
@@ -159,11 +163,11 @@ public class XssController extends BaseController {
 			String unionId = EncryptUtil.md5Code(paraMap.toString());
 			LetterInfo letter = letterService.loadLetterInfo(unionId);
 			if (letter != null) {
-				logger.error("信封已存在:" + referer + ";" + id + ";" + unionId);
+				logger.error("信封已存在:" + referer + ";" + project.getId() + ";" + unionId);
 				return;
 			}
 			letter = new LetterInfo();
-			letter.setProjectId(id);
+			letter.setProjectId(project.getId());
 			letter.setRefUrl(referer);
 			letter.setUpdateTime(new Date());
 			letter.setIp(ip);

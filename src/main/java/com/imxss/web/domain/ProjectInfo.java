@@ -27,6 +27,21 @@ public class ProjectInfo extends BaseModel{
 	private Integer openEmail;
 	private String ignoreRef;
 	private String ignoreIp;
+	/**
+	 * 1打开，0关闭
+	 */
+	private Integer isOpen=1;
+	
+	
+	
+	
+	
+	public Integer getIsOpen() {
+		return isOpen;
+	}
+	public void setIsOpen(Integer isOpen) {
+		this.isOpen = isOpen;
+	}
 	
 	
 	

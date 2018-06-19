@@ -197,6 +197,23 @@
 									<hr>
 								</div>
 								<div class="am-form-group">
+									<label for="user-intro" class="am-u-sm-3 am-form-label">开启收信</label>
+									<div class="am-u-sm-9">
+										<div class="tpl-switch">
+											<input name="isOpen" value="${(empty projectInfo.isOpen)?'1':projectInfo.isOpen }"
+												type="hidden" id="openPorject"> <input type="checkbox"
+												style="width: 50px;height: 25px" id="openPorjectCheck"
+												onchange="checkopenPorject()"
+												class="ios-switch bigswitch tpl-switch-btn"
+												${projectInfo.isOpen==1?'checked':'' }>
+											<div class="tpl-switch-btn-view">
+												<div></div>
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="am-form-group">
 									<label for="user-intro" class="am-u-sm-3 am-form-label">邮件提醒</label>
 									<div class="am-u-sm-9">
 										<div class="tpl-switch">
@@ -249,7 +266,13 @@
 			}
 		});
 	}
-
+	function checkopenPorject() {
+		if ($("#openPorjectCheck").is(':checked')) {
+			$("#openPorject").val(1);
+		} else {
+			$("#openPorject").val(0);
+		}
+	}
 	function checkopenEmail() {
 		if ($("#openEmailCheck").is(':checked')) {
 			$("#openEmail").val(1);

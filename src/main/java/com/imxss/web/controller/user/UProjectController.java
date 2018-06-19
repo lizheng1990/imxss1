@@ -250,7 +250,7 @@ public class UProjectController extends BaseController {
 				return new MsgEntity(-1, "无权操作");
 			}
 		}
-		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef", "ignoreIp");
+		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef", "ignoreIp","isOpen");
 		ModuleInfo moduleInfo = moduleService.loadModuleInfo(projectInfo.getModuleId());
 		if (moduleInfo == null
 				|| (moduleInfo.getUserId() != userInfo.getId().intValue() && moduleInfo.getType() != 1)) {

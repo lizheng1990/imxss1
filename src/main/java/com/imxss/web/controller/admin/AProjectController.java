@@ -130,7 +130,7 @@ public class AProjectController extends BaseController{
 	public Object projectSave() {
 		Integer id = getParaInteger("id");
 		ProjectInfo projectInfo = projectService.loadProjectInfo(id);
-		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef","ignoreIp");
+		projectInfo = getBeanAccept(projectInfo, "title", "moduleId", "openEmail", "ignoreRef","ignoreIp","isOpen");
 		if(StringUtil.hasNull(projectInfo.getTitle(),projectInfo.getModuleId())){
 			return new MsgEntity(-1,"参数有误");
 		}

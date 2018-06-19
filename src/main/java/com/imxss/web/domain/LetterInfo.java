@@ -17,8 +17,7 @@ public class LetterInfo extends BaseModel{
 	private Integer userId;
 	private Integer isReaded;
 	private Integer moduleId;
-	
-	
+
 	public Integer getModuleId() {
 		return moduleId;
 	}
