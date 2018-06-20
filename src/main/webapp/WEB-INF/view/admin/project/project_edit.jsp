@@ -205,7 +205,7 @@
 												style="width: 50px;height: 25px" id="openPorjectCheck"
 												onchange="checkopenPorject()"
 												class="ios-switch bigswitch tpl-switch-btn"
-												${projectInfo.isOpen==1?'checked':'' }>
+												${(empty projectInfo.isOpen||projectInfo.isOpen==1)?'checked':'' }>
 											<div class="tpl-switch-btn-view">
 												<div></div>
 											</div>
