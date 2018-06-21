@@ -48,7 +48,7 @@
 										class="am-input-group-btn">
 										<button
 											class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
-											type="submit"></button>
+											type="button" onclick="search()"></button>
 									</span>
 								</div>
 							</div>
@@ -121,6 +121,12 @@
 	<jsp:include page="../../includ/js.jsp" />
 </body>
 <script>
+
+
+	function search() {
+		$("#currPage").val('1');
+		document.dataForm.submit();
+	}
 	function delData(id) {
 		if (!confirm("数据删除后将无法恢复,确定执行此操作?")) {
 			return;
