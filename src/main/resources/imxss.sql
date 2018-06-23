@@ -169,6 +169,7 @@ CREATE TABLE `project_info` (
   `openMobile` int(1) DEFAULT '0',
   `openEmail` int(1) DEFAULT '0',
   `ignoreRef` varchar(2048) COLLATE utf8_bin DEFAULT NULL,
+  `ignoreIp` varchar(2048) COLLATE utf8_bin DEFAULT NULL,
   `isOpen` int(1) DEFAULT '1',
   PRIMARY KEY (`id`),
   KEY `project_module_id_fk` (`moduleId`) USING BTREE,
