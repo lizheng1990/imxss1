@@ -27,7 +27,7 @@
 				<li><a href="#" class="am-icon-home">信封中心</a></li>
 				<li class="am-active">信封管理</li>
 			</ol>
-			<form name="dataForm" action="" method="post">
+			<form name="dataForm" action="" method="post" class="dataform">
 				<div class="tpl-portlet-components">
 					<div class="portlet-title">
 						<div class="caption font-green bold">
@@ -193,6 +193,12 @@
 
 .am-u-lg-4 {
 	height: 295px !important;
+}
+.tpl-content-wrapper{
+	min-height: 768px;
+}
+.dataform{
+	min-height: 768px;
 }
 </style>
 </html>
