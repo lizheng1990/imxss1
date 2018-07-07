@@ -200,5 +200,8 @@
 .dataform{
 	min-height: 768px;
 }
+.tpl-portlet-components {
+    min-height: 768px;
+}
 </style>
 </html>
