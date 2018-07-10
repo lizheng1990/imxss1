@@ -146,7 +146,7 @@ public class InstallHandle {
 		FileOutputStream output = null;
 		try {
 			String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-			String path=classPath + "config/conf.properties";
+			String path=classPath + "config/datasource.properties";
 			properties.load(new FileInputStream(new File(path)));
 			output = new FileOutputStream(new File(path));
 			properties.setProperty(fieldName, value);
@@ -202,7 +202,7 @@ public class InstallHandle {
 
 	public static MsgEntity install(InstallConfig config) {
 		if(isInstall()){
-			return new MsgEntity(-1, "ImXSS已安装，如需重装请修改config/conf.properties下installed参数为0");
+			return new MsgEntity(-1, "ImXSS已安装，如需重装请修改config/datasource.properties下installed参数为0");
 		}
 		if (!StringUtil.isNullOrEmpty(config.host)) {
 			config.host = config.host.replace("：", ":");
