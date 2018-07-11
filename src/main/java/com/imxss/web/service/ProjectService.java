@@ -93,6 +93,11 @@ public class ProjectService {
 		where.set("userId", userInfo.getId());
 		return jdbcHandle.findBean(ProjectInfo.class,where,"id",true);
 	}
+	@CacheWrite(key = CacheFinal.PROJECT_LIST, time = 72000)
+	public List<ProjectInfo> loadProjects(){
+		Where where=new Where();
+		return jdbcHandle.findBean(ProjectInfo.class,where,"id",true);
+	}
 	@CacheWrite(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = "projectId", time = 72000)
 	public List<ProjectModuleMapping> loadProjectMappings(Integer projectId) {
 		return jdbcHandle.findBean(ProjectModuleMapping.class, "projectId", projectId);
@@ -114,6 +119,7 @@ public class ProjectService {
 	public ProjectModuleMapping loadProjectMappings(String id) {
 		return jdbcHandle.findBeanFirst(ProjectModuleMapping.class, "id", id);
 	}
+	@CacheWipe(key=CacheFinal.PROJECT_LIST)
 	@CacheWipe(key=CacheFinal.PROJECT_LIST,fields="mapping.userId")
 	@CacheWipe(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = "mapping.projectId")
 	@CacheWipe(key = CacheFinal.PROJECT_MODULE_MAPPING_INFO, fields = { "mapping.id" })
@@ -126,6 +132,7 @@ public class ProjectService {
 		String sql = "select count(*) from project_info where userId=?";
 		return jdbcHandle.getCount(sql, userId);
 	}
+	@CacheWipe(key=CacheFinal.PROJECT_LIST)
 	@CacheWipe(key=CacheFinal.PROJECT_LIST,fields="mapping.userId")
 	@CacheWipe(key = CacheFinal.PROJECT_MODULE_MAPPING_LIST, fields = "mapping.projectId")
 	@CacheWipe(key = CacheFinal.PROJECT_MODULE_MAPPING_INFO, fields = { "mapping.id" })

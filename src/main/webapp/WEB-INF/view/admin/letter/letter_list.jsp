@@ -76,7 +76,7 @@
 						<div class="am-g">
 							<hr>
 						</div>
-						<div class="am-g">
+						<div class="am-g" id="letterList">
 							<div class="tpl-table-images">
 								<c:if test="${empty dataPager.data }">
 									<center>暂无数据</center>
@@ -191,4 +191,18 @@
 .dataform{
 	min-height: 768px;
 }
-</style></html>
+.tpl-portlet-components {
+    min-height: 768px;
+}
+</style>
+<script>
+
+	$(document).ready(function() {
+
+		var minHeight = $(".am-selected-content").height();
+		$("#letterList").css({
+			minHeight : minHeight+40
+		})
+	});
+</script>
+</html>
