@@ -100,7 +100,7 @@ public class XssController extends BaseController {
 		xmlCode = xmlCode.replace("{basePath}", getAttribute("basePath").toString());
 		xmlCode = xmlCode.replace("{projectId}", id.toString());
 		xmlCode = xmlCode.replace("{moduleId}", moduleId.toString());
-		xmlCode = xmlCode.replace("{defSuffix}", getSessionPara("defSuffix").toString());
+		xmlCode = xmlCode.replace("{defSuffix}",RequestUtil.loadBasePath(req));
 		try {
 			res.getWriter().write(xmlCode);
 		} catch (Exception e) {
