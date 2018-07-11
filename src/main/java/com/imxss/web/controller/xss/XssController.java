@@ -96,9 +96,11 @@ public class XssController extends BaseController {
 		String api = loadBasePath(req) + "s/" + "api_" + project.getId() + "."
 				+ suffixService.loadSpringDefaultSuffix();
 		String xmlCode= module.getContent();
-		xmlCode = module.getContent().replace("{api}", api);
-		xmlCode = module.getContent().replace("{projectId}", id.toString());
-		xmlCode = module.getContent().replace("{modleId}", moduleId.toString());
+		xmlCode = xmlCode.replace("{api}", api);
+		xmlCode = xmlCode.replace("{basePath}", getAttribute("basePath").toString());
+		xmlCode = xmlCode.replace("{projectId}", id.toString());
+		xmlCode = xmlCode.replace("{moduleId}", moduleId.toString());
+		xmlCode = xmlCode.replace("{defSuffix}", getSessionPara("defSuffix").toString());
 		try {
 			res.getWriter().write(xmlCode);
 		} catch (Exception e) {
@@ -106,8 +108,8 @@ public class XssController extends BaseController {
 	}
 	
 
-	@RequestMapping(value = { "{projectId:\\d+}_{moduleId:\\d+}/auth" })
-	@LogHead("接受信封")
+	@RequestMapping(value = { "auth_{projectId:\\d+}_{moduleId:\\d+}" })
+	@LogHead("基础认证")
 	public String auth(HttpServletRequest req, HttpServletResponse res, @PathVariable Integer projectId, @PathVariable Integer moduleId) {
 		String referer=(String)request.getSession().getAttribute("referer");
 		if (StringUtil.isNullOrEmpty(referer)) {

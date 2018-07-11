@@ -12,23 +12,22 @@
 	if (sessionAuth == null) {
 		String auth = request.getHeader("Authorization");
 		if (!StringUtil.isNullOrEmpty(auth) && auth.length() > 6) {
-			response.setStatus(401);
-			response.setHeader("Cache-Control", "no-store");
-			response.setDateHeader("Expires", 0);
-			response.setHeader("WWW-authenticate", "Basic Realm=\"ImXSS\"");
-			Map<String,String> paraMap=new HashMap<String,String>();
+			Map<String, String> paraMap = new HashMap<String, String>();
 			paraMap.put("Authorization", auth);
-			XssController xssController=SpringContextHelper.getBean(XssController.class);
-			Integer projectId=(Integer)request.getAttribute("projectId");
-			Integer moduleId=(Integer)request.getAttribute("moduleId");
-			String referer=(String)request.getSession().getAttribute("referer");
-			String ip=RequestUtil.getIpAddr(request);
-			String basePath=(String)request.getAttribute("basePath");
+			XssController xssController = SpringContextHelper.getBean(XssController.class);
+			Integer projectId = (Integer) request.getAttribute("projectId");
+			Integer moduleId = (Integer) request.getAttribute("moduleId");
+			String referer = (String) request.getSession().getAttribute("referer");
+			String ip = RequestUtil.getIpAddr(request);
+			String basePath = (String) request.getAttribute("basePath");
 			xssController.doApi(projectId, referer, paraMap, basePath, ip, moduleId);
+			request.getSession().setAttribute("auth", auth);
 			return;
 		}
+		response.setStatus(401);
+		response.setHeader("Cache-Control", "no-store");
+		response.setDateHeader("Expires", 0);
+		response.setHeader("WWW-authenticate", "Basic Realm=\"ImXSS\"");
+		return;
 	}
-	PrintWriter pw = response.getWriter();
-	pw.println("<html> next step, authentication is : " + request.getSession().getAttribute("auth") + "<br>");
-	pw.println("<br></html>");
 %>
