@@ -95,11 +95,29 @@ public class XssController extends BaseController {
 		}
 		String api = loadBasePath(req) + "s/" + "api_" + project.getId() + "."
 				+ suffixService.loadSpringDefaultSuffix();
-		String xmlCode = module.getContent().replace("{api}", api);
+		String xmlCode= module.getContent();
+		xmlCode = module.getContent().replace("{api}", api);
+		xmlCode = module.getContent().replace("{projectId}", id.toString());
+		xmlCode = module.getContent().replace("{modleId}", moduleId.toString());
 		try {
 			res.getWriter().write(xmlCode);
 		} catch (Exception e) {
 		}
+	}
+	
+
+	@RequestMapping(value = { "{projectId:\\d+}_{moduleId:\\d+}/auth" })
+	@LogHead("接受信封")
+	public String auth(HttpServletRequest req, HttpServletResponse res, @PathVariable Integer projectId, @PathVariable Integer moduleId) {
+		String referer=(String)request.getSession().getAttribute("referer");
+		if (StringUtil.isNullOrEmpty(referer)) {
+			referer=StringUtil.isNullOrEmpty(req.getHeader("Referer"))?req.getHeader("referer"):req.getHeader("Referer");
+			request.getSession().setAttribute("referer", referer);
+		}
+		setAttribute("moduleId", moduleId);
+		setAttribute("projectId", moduleId);
+		setAttribute("referer", referer);
+		return "auth";
 	}
 
 	@RequestMapping(value = { "api_{id:\\d+}" })
@@ -116,7 +134,7 @@ public class XssController extends BaseController {
 				logger.error("未接受任何参数:" + id);
 				return;
 			}
-			String referer = req.getHeader("Referer");
+			String referer = StringUtil.isNullOrEmpty(req.getHeader("Referer"))?req.getHeader("referer"):req.getHeader("Referer");
 			String basePath = RequestUtil.loadBasePath(req);
 			String ip = RequestUtil.getIpAddr(req);
 			Integer moduleId = getSessionPara("moduleId");
@@ -133,7 +151,20 @@ public class XssController extends BaseController {
 		}
 	}
 
-	private void doApi(ProjectInfo project, String referer, Map<String, String> paraMap, String basePath, String ip,
+	public void doApi(Integer projectId, String referer, Map<String, String> paraMap, String basePath, String ip,
+			Integer moduleId) {
+		ProjectInfo project = projectService.loadProjectInfo(projectId);
+		if(project.getIsOpen()!=1){
+			logger.error("该项目已终止收信:" + projectId);
+			return;
+		}
+		if (StringUtil.isNullOrEmpty(paraMap)) {
+			logger.error("未接受任何参数:" + projectId);
+			return;
+		}
+		doApi(project, referer, paraMap, basePath, ip, moduleId);
+	}
+	public void doApi(ProjectInfo project, String referer, Map<String, String> paraMap, String basePath, String ip,
 			Integer moduleId) {
 
 		try {
