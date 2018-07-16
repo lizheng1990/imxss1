@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.coody.framework.core.controller.BaseController;
 import org.coody.framework.util.PropertUtil;
+import org.coody.framework.util.RequestUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -31,6 +32,9 @@ public class UIndexController extends BaseController {
 
 	@RequestMapping("/login")
 	public String login(HttpServletResponse res) {
+		if(RequestUtil.isUserLogin(request)){
+			return "redirect:user/index."+getSessionPara("defSuffix");
+		}
 		return "login";
 	}
 
