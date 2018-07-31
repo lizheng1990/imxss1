@@ -185,6 +185,7 @@
 .tpl-i-title {
 	word-break: break-all;
 	height: 54px;
+	font-size: 12px!important;
 }
 
 .tpl-table-images-content .tpl-i-more li {
