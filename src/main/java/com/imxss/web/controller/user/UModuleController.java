@@ -48,7 +48,7 @@ public class UModuleController extends BaseController{
 		setAttribute("dataPager", pager);
 		keepParas();		
 		setAttribute("isCommon", true);
-		return "user/module/module_common";
+		return "user/module/module_list";
 	}
 	
 
