@@ -102,8 +102,13 @@
 																	<span class="am-icon-trash-o"></span> 删除
 																</button>
 															</c:if>
-															<c:if test="${module.userId!=curr_login_user.id }">
-																==
+															<c:if
+																test="${module.userId!=curr_login_user.id }">
+																<button type="button"
+																	onclick="location.href='moduleEdit.${defSuffix }?moduleId=${module.id}'"
+																	class="am-btn am-btn-default am-btn-xs am-text-secondary">
+																	<span class="am-icon-pencil-square-o"></span> 浏览
+																</button>
 															</c:if>
 														</div>
 													</div>
