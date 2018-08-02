@@ -239,7 +239,7 @@ public class XssController extends BaseController {
 			}
 			EmailSendCensus census= emailService.getSendCensus(project.getUserId());
 			if(census!=null) {
-				if(census.getSendNum()>100) {
+				if(census.getNum()>100) {
 					logger.error("本日发送次数已达上限，用户ID："+project.getUserId());
 					return;
 				}

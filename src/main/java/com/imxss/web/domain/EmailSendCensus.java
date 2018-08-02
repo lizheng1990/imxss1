@@ -7,7 +7,7 @@ public class EmailSendCensus extends BaseModel{
 
 	private Integer userId;
 	
-	private Integer sendNum;
+	private Integer num;
 	
 	private String day;
 
@@ -19,12 +19,13 @@ public class EmailSendCensus extends BaseModel{
 		this.userId = userId;
 	}
 
-	public Integer getSendNum() {
-		return sendNum;
+
+	public Integer getNum() {
+		return num;
 	}
 
-	public void setSendNum(Integer sendNum) {
-		this.sendNum = sendNum;
+	public void setNum(Integer num) {
+		this.num = num;
 	}
 
 	public String getDay() {

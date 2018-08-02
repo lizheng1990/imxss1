@@ -52,7 +52,7 @@ public class EmailService {
 	public Long pushSendNum(Integer userId) {
 		EmailSendCensus census = new EmailSendCensus();
 		census.setUserId(userId);
-		census.setSendNum(1);
+		census.setNum(1);
 		census.setDay(DateUtils.getDateString());
 		return jdbcHandle.saveOrUpdateAuto(census, "sendNum");
 	}
