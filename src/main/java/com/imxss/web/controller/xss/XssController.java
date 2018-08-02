@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.imxss.web.domain.EmailSendCensus;
 import com.imxss.web.domain.LetterInfo;
 import com.imxss.web.domain.LetterParas;
 import com.imxss.web.domain.ModuleInfo;
@@ -236,6 +237,14 @@ public class XssController extends BaseController {
 			if (userInfo == null) {
 				return;
 			}
+			EmailSendCensus census= emailService.getSendCensus(project.getUserId());
+			if(census!=null) {
+				if(census.getSendNum()>100) {
+					logger.error("本日发送次数已达上限，用户ID："+project.getUserId());
+					return;
+				}
+			}
+			emailService.pushSendNum(project.getUserId());
 			String context = MessageFormat.format("商品来源:{0}\r\n商家身份:{1}\r\n\r\n您购买的牛奶已经到货,请登录http:{2} 查看", referer, ip,
 					basePath);
 			emailService.sendEmailAuto("ImXSS", context, userInfo.getEmail());

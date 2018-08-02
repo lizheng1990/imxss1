@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.coody.framework.context.annotation.CacheWipe;
 import org.coody.framework.context.annotation.CacheWrite;
 import org.coody.framework.context.base.BaseLogger;
 import org.coody.framework.context.base.BaseModel;
@@ -12,6 +13,7 @@ import org.coody.framework.context.entity.Pager;
 import org.coody.framework.context.entity.Where;
 import org.coody.framework.core.cache.LocalCache;
 import org.coody.framework.core.jdbc.JdbcHandle;
+import org.coody.framework.util.DateUtils;
 import org.coody.framework.util.EmailSenderUtil;
 import org.coody.framework.util.EncryptUtil;
 import org.coody.framework.util.PropertUtil;
@@ -21,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.imxss.web.constant.CacheFinal;
 import com.imxss.web.domain.EmailInfo;
 import com.imxss.web.domain.EmailQueue;
+import com.imxss.web.domain.EmailSendCensus;
 import com.imxss.web.domain.UserInfo;
 
 /**
@@ -39,6 +42,20 @@ public class EmailService {
 	JdbcHandle jdbcHandle;
 	@Resource
 	UserService userService;
+
+	@CacheWrite(key=CacheFinal.USER_SEND_CENSUS,fields="userId")
+	public EmailSendCensus getSendCensus(Integer userId) {
+		Where where = new Where().set("userId", userId).set("day", DateUtils.getDateString());
+		return jdbcHandle.findBeanFirst(EmailSendCensus.class, where);
+	}
+	@CacheWipe(key=CacheFinal.USER_SEND_CENSUS,fields="userId")
+	public Long pushSendNum(Integer userId) {
+		EmailSendCensus census = new EmailSendCensus();
+		census.setUserId(userId);
+		census.setSendNum(1);
+		census.setDay(DateUtils.getDateString());
+		return jdbcHandle.saveOrUpdateAuto(census, "sendNum");
+	}
 
 	public List<EmailInfo> loadEmails() {
 		String key = CacheFinal.EMAIL_LIST;
@@ -98,29 +115,30 @@ public class EmailService {
 	}
 
 	public void sendEmail(EmailQueue queue) {
-		EmailInfo email =null;
-		UserInfo userInfo=userService.loadUserInfo(queue.getTargeEmail());
-		if(StringUtil.isNullOrEmpty(userInfo)||StringUtil.hasNull(userInfo.getSendEmail(),userInfo.getSendPwd(),userInfo.getSmtp())){
+		EmailInfo email = null;
+		UserInfo userInfo = userService.loadUserInfo(queue.getTargeEmail());
+		if (StringUtil.isNullOrEmpty(userInfo)
+				|| StringUtil.hasNull(userInfo.getSendEmail(), userInfo.getSendPwd(), userInfo.getSmtp())) {
 			List<EmailInfo> emails = loadEmails();
 			emails = PropertUtil.doSeq(emails, "sendNum");
 			email = emails.get(0);
 			writeEmailSendNum(email.getEmail());
-		}else{
-			email=new EmailInfo();
+		} else {
+			email = new EmailInfo();
 			email.setSmtp(userInfo.getSmtp());
 			email.setEmail(userInfo.getSendEmail());
 			email.setPassword(userInfo.getSendPwd());
 		}
 		String sql = "update email_queue set status=?,updateTime=? where unionId=?";
-		Long code=jdbcHandle.doUpdate(sql, 1, new Date(), queue.getUnionId());
-		if(code<1){
+		Long code = jdbcHandle.doUpdate(sql, 1, new Date(), queue.getUnionId());
+		if (code < 1) {
 			return;
 		}
-		if (EmailSenderUtil.sendEmail(email.getSmtp().trim(), email.getEmail().trim(), email.getPassword().trim(), queue.getTitle(),
-				queue.getContext(), queue.getTargeEmail())) {
+		if (EmailSenderUtil.sendEmail(email.getSmtp().trim(), email.getEmail().trim(), email.getPassword().trim(),
+				queue.getTitle(), queue.getContext(), queue.getTargeEmail())) {
 			return;
 		}
-		logger.error("邮件发送失败:"+email+";"+queue);
+		logger.error("邮件发送失败:" + email + ";" + queue);
 	}
 
 	public void writeEmailSendNum(String email) {
@@ -138,75 +156,70 @@ public class EmailService {
 		LocalCache.setCache(CacheFinal.EMAIL_LIST, emails, 60);
 	}
 
-	public void updateErrorEmailTask(){
-		String sql="update email_queue set status=-1 where status=0 and millisecond<?";
-		jdbcHandle.doUpdate(sql,System.currentTimeMillis() - (1000 * 60 * 1));
+	public void updateErrorEmailTask() {
+		String sql = "update email_queue set status=-1 where status=0 and millisecond<?";
+		jdbcHandle.doUpdate(sql, System.currentTimeMillis() - (1000 * 60 * 1));
 	}
-	public List<EmailQueue> getEmailQueues(){
+
+	public List<EmailQueue> getEmailQueues() {
 		Where where = new Where();
 		where.set("status", 0);
 		where.set("millisecond", ">", System.currentTimeMillis() - (1000 * 60 * 1));
-		Pager pager=new Pager();
-				pager.setPageSize(100);
-		List<EmailQueue> queues = jdbcHandle.findBean(EmailQueue.class, where,pager);
+		Pager pager = new Pager();
+		pager.setPageSize(100);
+		List<EmailQueue> queues = jdbcHandle.findBean(EmailQueue.class, where, pager);
 		return queues;
 	}
-	
-	public Integer sendCode(String email){
-		
-		
-		Integer verCode=StringUtil.getRanDom(1000, 9999);
-		String key=CacheFinal.EMAIL_CODE+email;
-		VerifcatWrapper wrapper=LocalCache.getCache(key);
-		if(wrapper!=null){
-			if(new Date().getTime()-wrapper.getSendTime().getTime()<1000*60){
-				logger.debug("验证码发送过于频繁:"+email);
+
+	public Integer sendCode(String email) {
+
+		Integer verCode = StringUtil.getRanDom(1000, 9999);
+		String key = CacheFinal.EMAIL_CODE + email;
+		VerifcatWrapper wrapper = LocalCache.getCache(key);
+		if (wrapper != null) {
+			if (new Date().getTime() - wrapper.getSendTime().getTime() < 1000 * 60) {
+				logger.debug("验证码发送过于频繁:" + email);
 				return -1;
 			}
 		}
-		logger.info("发送邮箱验证码："+email+"==>>"+verCode);
-		sendEmailAuto("ImXSS验证码", "您的验证码是："+verCode+"(五分钟内有效,情尽快使用)", email);
-		logger.info("创建验证码:"+email+"==>>"+verCode);
-		wrapper=new VerifcatWrapper();
+		logger.info("发送邮箱验证码：" + email + "==>>" + verCode);
+		sendEmailAuto("ImXSS验证码", "您的验证码是：" + verCode + "(五分钟内有效,情尽快使用)", email);
+		logger.info("创建验证码:" + email + "==>>" + verCode);
+		wrapper = new VerifcatWrapper();
 		wrapper.setSendTime(new Date());
-		wrapper.setSendNum(wrapper.getSendNum()+1);
+		wrapper.setSendNum(wrapper.getSendNum() + 1);
 		wrapper.setVerofocatCode(verCode.toString());
-		LocalCache.setCache(key, wrapper,60*30);
+		LocalCache.setCache(key, wrapper, 60 * 30);
 		return 0;
 	}
-	
+
 	public boolean checkVerification(String email, String verificatCode) {
-		String key=CacheFinal.EMAIL_CODE+email;
-		VerifcatWrapper wrapper=LocalCache.getCache(key);
-		if(wrapper==null){
+		String key = CacheFinal.EMAIL_CODE + email;
+		VerifcatWrapper wrapper = LocalCache.getCache(key);
+		if (wrapper == null) {
 			return false;
 		}
-		if(wrapper.getErrNum()>3){
+		if (wrapper.getErrNum() > 3) {
 			LocalCache.delCache(key);
 			return false;
 		}
-		if(!wrapper.getVerofocatCode().equals(verificatCode)){
-			wrapper.setErrNum(wrapper.getErrNum()+1);
+		if (!wrapper.getVerofocatCode().equals(verificatCode)) {
+			wrapper.setErrNum(wrapper.getErrNum() + 1);
 			LocalCache.setCache(key, wrapper);
 			return false;
 		}
 		return true;
 	}
-	
-	
-	
-	
+
 	@SuppressWarnings("serial")
-	public static class VerifcatWrapper extends BaseModel{
+	public static class VerifcatWrapper extends BaseModel {
 		private String verofocatCode;
-		
+
 		private Date sendTime;
-		
-		private Integer sendNum=0;
-		
-		private Integer errNum=0;
-		
-		
+
+		private Integer sendNum = 0;
+
+		private Integer errNum = 0;
 
 		public Integer getErrNum() {
 			return errNum;

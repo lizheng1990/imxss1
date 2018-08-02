@@ -196,4 +196,8 @@ public class CacheFinal {
 	
 	public static final String WALL_IP_CACHE="WALL_IP_CACHE";
 	
+	/**
+	 * 邮件发送统计
+	 */
+	public static final String USER_SEND_CENSUS="USER_SEND_CENSUS";
 }

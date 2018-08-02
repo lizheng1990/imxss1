@@ -34,6 +34,17 @@ CREATE TABLE `address_info` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for email_send_census
+-- ----------------------------
+DROP TABLE IF EXISTS `email_send_census`;
+CREATE TABLE `email_send_census`  (
+  `userId` int(11) NOT NULL,
+  `day` varchar(14) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `num` int(11) NULL DEFAULT 0,
+  PRIMARY KEY (`userId`, `day`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=41  ;
+
+-- ----------------------------
 -- Table structure for email_info
 -- ----------------------------
 DROP TABLE IF EXISTS `email_info`;
