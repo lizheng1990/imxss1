@@ -28,7 +28,7 @@
 		</mvc:message-converters>
 	</mvc:annotation-driven>
 	<bean
-		class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping" />
+		class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping" />
 	<!-- spring mvc配置 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
