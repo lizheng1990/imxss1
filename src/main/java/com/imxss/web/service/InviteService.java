@@ -47,7 +47,7 @@ public class InviteService {
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {
 			where.set("inviteCode", keyWorld);
 		}
-		if (!StringUtil.isNullOrEmpty(status) && status > 0) {
+		if (!StringUtil.isNullOrEmpty(status) && status > -1) {
 			where.set("status", status);
 		}
 		return jdbcHandle.findPager(InviteInfo.class, where, pager, "updateTime", true);
