@@ -137,7 +137,6 @@ public class DiyDispatcherFilter extends DispatcherServlet implements Filter {
 			return filterConfig.getInitParameter(s);
 		}
 
-		@SuppressWarnings("unchecked")
 		public Enumeration<String> getInitParameterNames() {
 			return filterConfig.getInitParameterNames();
 		}

@@ -40,14 +40,14 @@ public class InviteService {
 		return jdbcHandle.insert(inviteInfo);
 	}
 
-	@CacheWrite(key = CacheFinal.INVITE_LIST, fields = { "userId", "keyWorld", "pager.currPage",
-			"pager.pageSize","status" }, time = 2)
-	public Pager loadInvites(Pager pager, String keyWorld,Integer status) {
+	@CacheWrite(key = CacheFinal.INVITE_LIST, fields = { "userId", "keyWorld", "pager.currPage", "pager.pageSize",
+			"status" }, time = 2)
+	public Pager loadInvites(Pager pager, String keyWorld, Integer status) {
 		Where where = new Where();
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {
 			where.set("inviteCode", keyWorld);
 		}
-		if(!StringUtil.isNullOrEmpty(status)) {
+		if (!StringUtil.isNullOrEmpty(status) && status > 0) {
 			where.set("status", status);
 		}
 		return jdbcHandle.findPager(InviteInfo.class, where, pager, "updateTime", true);
