@@ -50,7 +50,7 @@ public class AInviteController extends BaseController {
 	public String inviteManage() {
 		Pager pager = getBeanAll(Pager.class);
 		pager.setPageSize(10);
-		pager = inviteService.loadInvites(pager, getPara("keyWorld"));
+		pager = inviteService.loadInvites(pager, getPara("keyWorld"),getParaInteger("status"));
 		if (!StringUtil.isNullOrEmpty(pager.getData())) {
 			List<InviteSchema> invites = PropertUtil.getNewList((List<?>) pager.getData(), InviteSchema.class);
 			for(InviteSchema schema:invites){

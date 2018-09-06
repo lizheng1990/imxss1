@@ -38,8 +38,7 @@
 							<div class="am-u-sm-12 am-u-md-6">
 								<div class="am-btn-toolbar">
 									<div class="am-btn-group am-btn-group-xs">
-									<button type="button"
-											onclick="javascript:createInvite()"
+										<button type="button" onclick="javascript:createInvite()"
 											class="am-btn am-btn-default am-btn-success">
 											<span class="am-icon-plus"></span> 生成邀请码
 										</button>
@@ -48,9 +47,21 @@
 							</div>
 							<!-- 搜索 -->
 							<div class="am-u-sm-12 am-u-md-3">
+								<div class="am-form-group">
+									<select data-am-selected="{btnSize: 'sm'}"
+										style="display: none;" name="status">
+										<option value="">请选择状态</option>
+										<option value="0" ${0==status?'selected':'' }>未使用</option>
+										<option value="1" ${1==status?'selected':'' }>已使用</option>
+									</select>
+
+								</div>
+							</div>
+							<div class="am-u-sm-12 am-u-md-3">
 								<div class="am-input-group am-input-group-sm">
-									<input type="text" class="am-form-field" name="keyWorld" placeholder="输入关键字搜索"
-										value="${keyWorld }"> <span class="am-input-group-btn">
+									<input type="text" class="am-form-field" name="keyWorld"
+										placeholder="输入关键字搜索" value="${keyWorld }"> <span
+										class="am-input-group-btn">
 										<button
 											class="am-btn  am-btn-default am-btn-success tpl-am-btn-success am-icon-search"
 											type="submit"></button>

@@ -41,11 +41,14 @@ public class InviteService {
 	}
 
 	@CacheWrite(key = CacheFinal.INVITE_LIST, fields = { "userId", "keyWorld", "pager.currPage",
-			"pager.pageSize" }, time = 2)
-	public Pager loadInvites(Pager pager, String keyWorld) {
+			"pager.pageSize","status" }, time = 2)
+	public Pager loadInvites(Pager pager, String keyWorld,Integer status) {
 		Where where = new Where();
 		if (!StringUtil.isNullOrEmpty(keyWorld)) {
 			where.set("inviteCode", keyWorld);
+		}
+		if(!StringUtil.isNullOrEmpty(status)) {
+			where.set("status", status);
 		}
 		return jdbcHandle.findPager(InviteInfo.class, where, pager, "updateTime", true);
 	}
