@@ -50,7 +50,7 @@
 								<div class="am-form-group">
 									<select data-am-selected="{btnSize: 'sm'}"
 										style="display: none;" name="status">
-										<option value="">请选择状态</option>
+										<option value="">状态</option>
 										<option value="0" ${0==status?'selected':'' }>未使用</option>
 										<option value="1" ${1==status?'selected':'' }>已使用</option>
 									</select>
