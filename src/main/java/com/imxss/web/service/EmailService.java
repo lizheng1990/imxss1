@@ -147,6 +147,7 @@ public class EmailService {
 		code=emailRecordService.addEmailRecord(queue.getTargeEmail(), day);
 		if(code<1) {
 			logger.error("变更邮件发送次数失败>>"+queue.getUnionId()+":"+queue.getContext());
+			return;
 		}
 		if (EmailSenderUtil.sendEmail(email.getSmtp().trim(), email.getEmail().trim(), email.getPassword().trim(),
 				queue.getTitle(), queue.getContext(), queue.getTargeEmail())) {
