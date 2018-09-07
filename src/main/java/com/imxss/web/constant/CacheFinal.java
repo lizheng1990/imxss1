@@ -125,6 +125,11 @@ public class CacheFinal {
 	public static final String EMAIL_CODE="EMAIL_CODE";
 	
 	/**
+	 * 邮箱发送数量
+	 */
+	public static final String EMAIL_RECORD="EMAIL_RECORD";
+	
+	/**
 	 * 邮箱验证码事件
 	 */
 	public static final String EMAIL_CODE_TIME="EMAIL_CODE_TIME";

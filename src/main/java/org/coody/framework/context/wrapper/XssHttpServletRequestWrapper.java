@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequestWrapper;
  * @author Coody
  * @time 2015-06-09
  */
-@SuppressWarnings("unchecked")
 public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
 

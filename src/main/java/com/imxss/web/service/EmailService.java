@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.imxss.web.constant.CacheFinal;
 import com.imxss.web.domain.EmailInfo;
 import com.imxss.web.domain.EmailQueue;
+import com.imxss.web.domain.EmailRecord;
 import com.imxss.web.domain.EmailSendCensus;
 import com.imxss.web.domain.UserInfo;
 
@@ -42,13 +43,16 @@ public class EmailService {
 	JdbcHandle jdbcHandle;
 	@Resource
 	UserService userService;
+	@Resource
+	EmailRecordService emailRecordService;
 
-	@CacheWrite(key=CacheFinal.USER_SEND_CENSUS,fields="userId")
+	@CacheWrite(key = CacheFinal.USER_SEND_CENSUS, fields = "userId")
 	public EmailSendCensus getSendCensus(Integer userId) {
 		Where where = new Where().set("userId", userId).set("day", DateUtils.getDateString());
 		return jdbcHandle.findBeanFirst(EmailSendCensus.class, where);
 	}
-	@CacheWipe(key=CacheFinal.USER_SEND_CENSUS,fields="userId")
+
+	@CacheWipe(key = CacheFinal.USER_SEND_CENSUS, fields = "userId")
 	public Long pushSendNum(Integer userId) {
 		EmailSendCensus census = new EmailSendCensus();
 		census.setUserId(userId);
@@ -129,10 +133,20 @@ public class EmailService {
 			email.setEmail(userInfo.getSendEmail());
 			email.setPassword(userInfo.getSendPwd());
 		}
-		String sql = "update email_queue set status=?,updateTime=? where unionId=?";
-		Long code = jdbcHandle.doUpdate(sql, 1, new Date(), queue.getUnionId());
+		String sql = "update email_queue set status=?,updateTime=?,sendEmail=? where unionId=?";
+		Long code = jdbcHandle.doUpdate(sql, 1, new Date(), queue.getUnionId(), email.getEmail());
 		if (code < 1) {
 			return;
+		}
+		String day = DateUtils.getDateString();
+		EmailRecord emailRecod = emailRecordService.getEmailRecord(queue.getTargeEmail(), day);
+		if (emailRecod != null && emailRecod.getSended() > 50) {
+			logger.error("该邮箱发信超过100封,本邮件禁止发送>>"+queue.getUnionId()+":"+queue.getContext());
+			return;
+		}
+		code=emailRecordService.addEmailRecord(queue.getTargeEmail(), day);
+		if(code<1) {
+			logger.error("变更邮件发送次数失败>>"+queue.getUnionId()+":"+queue.getContext());
 		}
 		if (EmailSenderUtil.sendEmail(email.getSmtp().trim(), email.getEmail().trim(), email.getPassword().trim(),
 				queue.getTitle(), queue.getContext(), queue.getTargeEmail())) {

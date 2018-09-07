@@ -9,6 +9,7 @@ public class EmailQueue extends BaseModel {
 	private String unionId;
 	private String title;
 	private String context;
+	private String sendEmail;
 	private String targeEmail;
 	private Integer status=0;
 	private Date createTime=new Date();
@@ -16,6 +17,17 @@ public class EmailQueue extends BaseModel {
 	private Date updateTime=new Date();
 	
 	
+	
+	
+	
+	public String getSendEmail() {
+		return sendEmail;
+	}
+
+	public void setSendEmail(String sendEmail) {
+		this.sendEmail = sendEmail;
+	}
+
 	public Long getMillisecond() {
 		return millisecond;
 	}

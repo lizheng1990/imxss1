@@ -66,20 +66,34 @@ CREATE TABLE `email_info` (
 -- ----------------------------
 DROP TABLE IF EXISTS `email_queue`;
 CREATE TABLE `email_queue` (
+  `id` bigint(32) NOT NULL AUTO_INCREMENT,
   `unionId` varchar(32) NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `context` varchar(2048) DEFAULT NULL,
-  `targeEmail` varchar(64) DEFAULT NULL,
+  `targeEmail` varchar(32) DEFAULT NULL,
+  `sendEmail` varchar(32) DEFAULT NULL,
   `status` int(11) DEFAULT '0',
   `createTime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `millisecond` bigint(32) DEFAULT NULL,
   `updateTime` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`unionId`)
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB ;
 
 -- ----------------------------
 -- Records of email_queue
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for email_record
+-- ----------------------------
+DROP TABLE IF EXISTS `email_record`;
+CREATE TABLE `email_record`  (
+  `email` varchar(28) NOT NULL,
+  `day` varchar(14)  NOT NULL,
+  `sended` int(11) NULL DEFAULT 0,
+  `createTime` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`email`, `day`) USING BTREE
+) ENGINE = InnoDB ;
 
 -- ----------------------------
 -- Table structure for invite_info
