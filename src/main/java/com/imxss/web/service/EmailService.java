@@ -140,7 +140,7 @@ public class EmailService {
 		}
 		String day = DateUtils.getDateString();
 		EmailRecord emailRecod = emailRecordService.getEmailRecord(queue.getTargeEmail(), day);
-		if (emailRecod != null && emailRecod.getSended() > 50) {
+		if (emailRecod != null && emailRecod.getSended() > 100) {
 			logger.error("该邮箱发信超过100封,本邮件禁止发送>>"+queue.getUnionId()+":"+queue.getContext());
 			return;
 		}
