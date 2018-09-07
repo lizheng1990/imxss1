@@ -133,8 +133,8 @@ public class EmailService {
 			email.setEmail(userInfo.getSendEmail());
 			email.setPassword(userInfo.getSendPwd());
 		}
-		String sql = "update email_queue set status=?,updateTime=?,sendEmail=? where unionId=?";
-		Long code = jdbcHandle.doUpdate(sql, 1, new Date(), queue.getUnionId(), email.getEmail());
+		String sql = "update email_queue set status=?,updateTime=?,sendEmail=? where id=?";
+		Long code = jdbcHandle.doUpdate(sql, 1, new Date(), email.getEmail(),queue.getId());
 		if (code < 1) {
 			return;
 		}

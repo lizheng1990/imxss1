@@ -6,6 +6,8 @@ import org.coody.framework.context.base.BaseModel;
 
 @SuppressWarnings("serial")
 public class EmailQueue extends BaseModel {
+	
+	private Integer id;
 	private String unionId;
 	private String title;
 	private String context;
@@ -20,6 +22,14 @@ public class EmailQueue extends BaseModel {
 	
 	
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getSendEmail() {
 		return sendEmail;
 	}
