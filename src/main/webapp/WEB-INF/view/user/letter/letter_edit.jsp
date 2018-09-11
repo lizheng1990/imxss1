@@ -84,11 +84,16 @@
 										<label for="user-name" class="am-u-sm-3 am-form-label">${para.paraName }</label>
 										<div class="am-u-sm-9">
 											<c:if test="${fn:length(para.paraValue)<'200' && !fn:contains(para.paraValue,';') }">
-												<input type="text" class="tpl-form-input" id="user-name"
+												<input type="text" class="tpl-form-input" id="${para.paraName }"
 													value="${para.paraValue }">
 											</c:if>
 											<c:if test="${fn:length(para.paraValue)>'200' || fn:contains(para.paraValue,';') }">
-												<textarea class="" rows="${fn:length(para.paraValue)/70+1 }" id="user-intro">${para.paraValue}</textarea>
+												<textarea class="" rows="${fn:length(para.paraValue)/70+1 }" id="${para.paraName }">${para.paraValue}</textarea>
+											</c:if>
+											<c:if test="${para.paraName eq 'cookie' }">
+												<c:if test="${!empty cookieX }">
+													<button class="am-btn am-btn-default am-round am-btn-xs" onclick="doFormat()">格式化</button>
+												</c:if>
 											</c:if>
 										</div>
 									</div>
@@ -109,5 +114,9 @@
 	<jsp:include page="../../includ/js.jsp" />
 </body>
 <script>
+	function doFormat(){
+		var cookie='${cookieX}';
+		$("#cookie").val(cookie);
+	}
 </script>
 </html>

@@ -11,6 +11,7 @@ public class LetterParas extends BaseModel{
 	private Integer letterId;
 	private String paraValue;
 	private Date updateTime;
+	
 	public String getParaName() {
 		return paraName;
 	}

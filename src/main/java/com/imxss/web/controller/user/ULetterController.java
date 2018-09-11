@@ -1,5 +1,6 @@
 package com.imxss.web.controller.user;
 
+import java.net.MalformedURLException;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -22,6 +23,7 @@ import com.imxss.web.domain.LetterParas;
 import com.imxss.web.domain.ModuleInfo;
 import com.imxss.web.domain.ProjectInfo;
 import com.imxss.web.domain.UserInfo;
+import com.imxss.web.schema.CookieSchema;
 import com.imxss.web.schema.LetterSchema;
 import com.imxss.web.service.IpService;
 import com.imxss.web.service.LetterService;
@@ -110,6 +112,16 @@ public class ULetterController extends BaseController {
 		// 加载信封参数
 		List<LetterParas> paras = letterService.loadParas(letterId);
 		setAttribute("letterParas", paras);
+		//格式化cookie
+		LetterParas para=PropertUtil.getByList(paras,"paraName", "cookie");
+		if(!StringUtil.hasNull(para,letter.getRefUrl())) {
+			try {
+				String cookie=CookieSchema.buildCookies(letter.getRefUrl(), para.getParaValue());
+				setAttribute("cookieX", cookie);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
 		return "user/letter/letter_edit";
 	}
 
