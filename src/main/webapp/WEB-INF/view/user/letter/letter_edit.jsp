@@ -92,7 +92,7 @@
 											</c:if>
 											<c:if test="${para.paraName eq 'cookie' }">
 												<c:if test="${!empty cookieX }">
-													<a href="#" onclick="doFormat()">格式化</a>
+													<a href="#" onclick="doFormat()" style="font-size: 12px;text-decoration: underline;">格式化</a>
 												</c:if>
 											</c:if>
 										</div>
