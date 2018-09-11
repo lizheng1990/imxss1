@@ -92,7 +92,7 @@
 											</c:if>
 											<c:if test="${para.paraName eq 'cookie' }">
 												<c:if test="${!empty cookieX }">
-													<button class="am-btn am-btn-default am-round am-btn-xs" onclick="doFormat()">格式化</button>
+													<a href="#" onclick="doFormat()">格式化</a>
 												</c:if>
 											</c:if>
 										</div>
