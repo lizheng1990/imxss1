@@ -17,9 +17,9 @@
 <meta name="description" content="${setting.description }">
 <meta name="keywords" content="${setting.keywords }">
 <link rel="stylesheet"
-	href="//cdn.bootcss.com/amazeui/2.7.2/css/amazeui.min.css" />
+	href="//cdnjs.cloudflare.com/ajax/libs//amazeui/2.7.2/css/amazeui.min.css" />
 <link rel="stylesheet" href="${basePath }assets/css/other.min.css" />
-<script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs//jquery/3.2.1/jquery.min.js"></script>
 <link rel="icon" href="${basePath }assets/img/favicon.png"
 	type="image/png">
 </head>

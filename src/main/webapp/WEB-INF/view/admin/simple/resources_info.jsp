@@ -54,9 +54,9 @@
 													</c:if>
 													<c:if test="${!isMessyCode && fn:length(context)<65536 }">
 														<link rel="stylesheet"
-															href="//cdn.bootcss.com/prism/1.8.1/themes/prism.min.css"
+															href="//cdnjs.cloudflare.com/ajax/libs//prism/1.8.1/themes/prism.min.css"
 															data-noprefix />
-														<script src="//cdn.bootcss.com/prism/1.8.0/prism.min.js"></script>
+														<script src="//cdnjs.cloudflare.com/ajax/libs//prism/1.8.0/prism.min.js"></script>
 														<pre>
 															<code class="language-java language-html">
 ${code}

@@ -14,7 +14,7 @@
 <!-- Custom CSS -->
 <link href="${basePath }assets/css/landing-page.min.css" rel="stylesheet">
 <!-- Custom Fonts -->
-<link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 <link rel="icon" href="${basePath }assets/img/favicon.png" type="image/png" >
 <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
