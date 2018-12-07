@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -95,8 +96,8 @@ public class InstallHandle {
 		}
 	}
 
-	public static boolean createTables(String host, String dbUser, String pwd, String dbName) {
-		String path = Thread.currentThread().getContextClassLoader().getResource("").getPath() + "/imxss.sql";
+	public static boolean createTables(String host, String dbUser, String pwd, String dbName) throws URISyntaxException {
+		String path = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath() + "/imxss.sql";
 		try {
 			SQLExec sqlExec = new SQLExec();
 			Class.forName("com.mysql.jdbc.Driver");// 指定连接类型
@@ -141,11 +142,11 @@ public class InstallHandle {
 		}
 	}
 
-	public static boolean writeConfig(String fieldName, String value) {
+	public static boolean writeConfig(String fieldName, String value) throws URISyntaxException {
 		Properties properties = new Properties();
 		FileOutputStream output = null;
 		try {
-			String classPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+			String classPath = Thread.currentThread().getContextClassLoader().getResource("").toURI().getPath();
 			String path=classPath + "config/datasource.properties";
 			properties.load(new FileInputStream(new File(path)));
 			output = new FileOutputStream(new File(path));
@@ -200,7 +201,7 @@ public class InstallHandle {
 		dataSource.resetPoolManager();
 	}
 
-	public static MsgEntity install(InstallConfig config) {
+	public static MsgEntity install(InstallConfig config) throws URISyntaxException {
 		if(isInstall()){
 			return new MsgEntity(-1, "ImXSS已安装，如需重装请修改config/datasource.properties下installed参数为0");
 		}
