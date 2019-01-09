@@ -19,6 +19,9 @@
 .am-form-group {
     margin-bottom: 0.5rem !important;
 }
+.am-selected-list {
+    font-size: 1.2rem !important;
+}
 </style>
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs//amazeui/2.7.2/css/amazeui.min.css" />
