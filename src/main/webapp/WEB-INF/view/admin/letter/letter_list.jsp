@@ -36,6 +36,16 @@
 .tpl-portlet-components {
     min-height: 768px;
 }
+.tpl-table-images-content .tpl-i-more ul {
+    padding: 3px 0px !important;
+}
+.tpl-table-images-content .tpl-i-more li {
+    font-size: 12px !important;
+}
+.tpl-table-images-content .tpl-i-font {
+    font-size: 12px !important;
+    line-height: 1.4em !important;
+}
 </style>
 </head>
 
