@@ -6,6 +6,15 @@
 
 <head>
 <jsp:include page="../../includ/header.jsp" />
+<style>
+input {
+	background-color: white !important;
+}
+
+.am-text-secondary {
+	background-color: white !important;
+}
+</style>
 </head>
 
 <body data-type="index">
@@ -77,7 +86,7 @@
 												<optgroup label="系统模块">
 													<c:forEach items="${sysModules }" var="module">
 														<option value="${module.id }"
-															${mapping.moduleId==module.id?'selected':'' } >${module.title }</option>
+															${mapping.moduleId==module.id?'selected':'' }>${module.title }</option>
 													</c:forEach>
 												</optgroup>
 											</c:if>
@@ -130,13 +139,4 @@
 	}
 </script>
 
-<style>
-input {
-	background-color: white !important;
-}
-
-.am-text-secondary {
-	background-color: white !important;
-}
-</style>
 </html>

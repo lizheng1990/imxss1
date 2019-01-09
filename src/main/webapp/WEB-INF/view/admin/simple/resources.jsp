@@ -10,6 +10,19 @@
 
 <head>
 <jsp:include page="../../includ/header.jsp" />
+<style>
+table {
+	font-size: 1.2rem !important;
+}
+
+.page-header-description {
+	font-size: 1.4rem !important;
+	margin: 0 0 0.3rem 0 !important;
+}
+.note {
+    padding: 5px 15px 5px 5px !important;
+}
+</style>
 </head>
 
 <body data-type="index">
@@ -106,17 +119,4 @@
 	</div>
 	<jsp:include page="../../includ/js.jsp" />
 </body>
-<style>
-table {
-	font-size: 1.2rem !important;
-}
-
-.page-header-description {
-	font-size: 1.4rem !important;
-	margin: 0 0 0.3rem 0 !important;
-}
-.note {
-    padding: 5px 15px 5px 5px !important;
-}
-</style>
 </html>

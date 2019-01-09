@@ -11,6 +11,16 @@
 
 <head>
 <jsp:include page="../../includ/header.jsp" />
+<style>
+table {
+	font-size: 1.2rem !important;
+}
+
+.page-header-description {
+	font-size: 1.4rem !important;
+	margin: 0 0 0.3rem 0 !important;
+}
+</style>
 </head>
 
 <body data-type="index">
@@ -121,14 +131,4 @@ function delCache(key) {
 		delCache(key);
 	}
 </script>
-<style>
-table {
-	font-size: 1.2rem !important;
-}
-
-.page-header-description {
-	font-size: 1.4rem !important;
-	margin: 0 0 0.3rem 0 !important;
-}
-</style>
 </html>

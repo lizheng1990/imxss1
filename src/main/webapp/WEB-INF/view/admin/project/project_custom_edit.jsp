@@ -6,6 +6,15 @@
 
 <head>
 <jsp:include page="../../includ/header.jsp" />
+<style>
+input {
+	background-color: white !important;
+}
+
+.am-text-secondary {
+	background-color: white !important;
+}
+</style>
 </head>
 
 <body data-type="index">
@@ -130,13 +139,5 @@
 	}
 </script>
 
-<style>
-input {
-	background-color: white !important;
-}
 
-.am-text-secondary {
-	background-color: white !important;
-}
-</style>
 </html>

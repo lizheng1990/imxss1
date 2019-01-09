@@ -8,6 +8,35 @@
 
 <head>
 <jsp:include page="../../includ/header.jsp" />
+<style>
+.am-btn-group .am-btn+.am-btn, .am-btn-group .am-btn+.am-btn-group,
+	.am-btn-group .am-btn-group+.am-btn, .am-btn-group .am-btn-group+.am-btn-group
+	{
+	margin-left: 1rem;
+}
+
+.tpl-i-title {
+	word-break: break-all;
+	height: 54px;
+	font-size: 12px!important;
+}
+
+.tpl-table-images-content .tpl-i-more li {
+	text-align: left;
+}
+.am-u-lg-4 {
+    height: 295px!important;
+}
+.tpl-content-wrapper{
+	min-height: 768px;
+}
+.dataform{
+	min-height: 768px;
+}
+.tpl-portlet-components {
+    min-height: 768px;
+}
+</style>
 </head>
 
 <body data-type="index">
@@ -167,35 +196,6 @@
 		});
 	}
 </script>
-<style>
-.am-btn-group .am-btn+.am-btn, .am-btn-group .am-btn+.am-btn-group,
-	.am-btn-group .am-btn-group+.am-btn, .am-btn-group .am-btn-group+.am-btn-group
-	{
-	margin-left: 1rem;
-}
-
-.tpl-i-title {
-	word-break: break-all;
-	height: 54px;
-	font-size: 12px!important;
-}
-
-.tpl-table-images-content .tpl-i-more li {
-	text-align: left;
-}
-.am-u-lg-4 {
-    height: 295px!important;
-}
-.tpl-content-wrapper{
-	min-height: 768px;
-}
-.dataform{
-	min-height: 768px;
-}
-.tpl-portlet-components {
-    min-height: 768px;
-}
-</style>
 <script>
 
 	$(document).ready(function() {
