@@ -13,6 +13,12 @@
 .tpl-content-wrapper {
 	font-size: 1.2rem;
 }
+.tpl-portlet-components .portlet-title {
+    margin-bottom: 3px !important;
+}
+.am-form-group {
+    margin-bottom: 0.5rem !important;
+}
 </style>
 <link rel="stylesheet"
 	href="//cdnjs.cloudflare.com/ajax/libs//amazeui/2.7.2/css/amazeui.min.css" />
