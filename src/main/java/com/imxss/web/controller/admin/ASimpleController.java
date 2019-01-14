@@ -1,6 +1,7 @@
 package com.imxss.web.controller.admin;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -72,12 +73,12 @@ public class ASimpleController extends BaseController {
 	@RequestMapping(value = "/resources")
 	@Power("resources")
 	@LogHead("资源管理")
-	public String resources(HttpServletRequest req, HttpServletResponse res) {
+	public String resources(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String path = getPara("file");
 		if (StringUtil.isNullOrEmpty(path)) {
 			path = getBasePath();
 		}
-		path = new File(path).getPath().replace("\\", "/");
+		path = new File(path).getCanonicalPath().replace("\\", "/");
 		String basePath =  getBasePath();
 		basePath = new File(basePath).getPath().replace("\\", "/");
 		basePath = URLDecoder.decode(basePath);
@@ -120,7 +121,7 @@ public class ASimpleController extends BaseController {
 	@RequestMapping(value = "/resourcesInfo")
 	@Power("resources")
 	@LogHead("资源管理-文件详情")
-	public String resourcesInfo(HttpServletRequest req, HttpServletResponse res) {
+	public String resourcesInfo(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String path = getPara("file");
 		if (StringUtil.isNullOrEmpty(path)) {
 			return "redirect:resources."+getSessionPara("defSuffix");
@@ -137,7 +138,7 @@ public class ASimpleController extends BaseController {
 	@Power("resources")
 	@ResponseBody
 	@LogHead("资源管理-字段值修改")
-	public Object modifyField(HttpServletRequest req, HttpServletResponse res) {
+	public Object modifyField(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		CtClassEntity clazz = loadClassEntity();
 		String fieldName = getPara("fieldName");
 		Object value = getPara("fieldValue");
@@ -179,7 +180,7 @@ public class ASimpleController extends BaseController {
 	@Power("resources")
 	@ResponseBody
 	@LogHead("资源管理-枚举值修改")
-	public Object modifyEnm(HttpServletRequest req, HttpServletResponse res) {
+	public Object modifyEnm(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		CtClassEntity clazz = loadClassEntity();
 		String fieldName = getPara("fieldName");
 		Object value = getPara("fieldValue");
@@ -337,17 +338,17 @@ public class ASimpleController extends BaseController {
 	
 
 	@SuppressWarnings("deprecation")
-	private CtClassEntity loadClassEntity() {
+	private CtClassEntity loadClassEntity() throws IOException {
 		String path = getPara("file");
 		keepParas();
 		if (StringUtil.isNullOrEmpty(path)) {
 			return null;
 		}
 		String basePath = getBasePath();
-		basePath = new File(basePath).getPath().replace("\\", "/") + "/";
+		basePath = new File(basePath).getCanonicalPath().replace("\\", "/") + "/";
 		basePath = URLDecoder.decode(basePath);
-		path = path.replace("\\", "/");
 		path = URLDecoder.decode(path);
+		path = path.replace("\\", "/");
 		if (!path.startsWith(basePath)) {
 			return null;
 		}
